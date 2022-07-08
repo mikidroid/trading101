@@ -1,0 +1,9 @@
+<template>
+  <div>
+   <v-img
+  max-height="68"
+  max-width="250"
+  src="files/images/logo.png"
+></v-img>
+   </div>
+</template>
