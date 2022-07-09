@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Inertia\Inertia;
 use Illuminate\Http\Request;
 
 class Invest extends Controller
@@ -14,6 +14,8 @@ class Invest extends Controller
     public function index()
     {
         //
+        return Inertia::render('user/investments');
+        
     }
 
     /**
@@ -24,6 +26,7 @@ class Invest extends Controller
     public function create()
     {
         //
+        return Inertia::render('user/invest');
     }
 
     /**

@@ -65,5 +65,13 @@ export default {
      return this.props.auth.user
     }
  },
+ created(){
+const message = this.$page.props.flash;
+      
+        if (message.success != null) {
+              this.$toast.success(this.$page.props.flash.success);}
+         if (message.error != null) {
+              this.$toast.error(this.$page.props.flash.error);}
+  },
 }
 </script>

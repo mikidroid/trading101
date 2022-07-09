@@ -6,7 +6,7 @@
   
   <div class="d-flex mt-4 px-2" color="inherent">
       <div class="mt-3 pa-2 mr-auto subtitle" inherent>
-     <Link as="button" :href="route('deposit.index')">
+     <Link as="button" :href="route('deposit')">
       <v-btn
       rounded
       :color="color.accent"

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\HelloController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
-use App\Http\Controllers\Deposit;
-use App\Http\Controllers\Withdrawal;
+use App\Http\Controllers\Invest;
+use App\Http\Controllers\Trade;
+use App\Http\Controllers\Lottery;
+use App\Http\Controllers\Transactions;
+use App\Http\Controllers\Profile;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,8 +24,15 @@ Route::get('/', function () {
     return Inertia::render('home/home');
 })->name('/');
 
-Route::resource('deposit',Deposit::class);
-Route::resource('withdrawal', Withdrawal::class);
+
+Route::resource('trade',Trade::class);
+Route::resource('lottery',Lottery::class);
+Route::resource('investment',Invest::class);
+Route::resource('profile',Profile::class);
+Route::resource('transactions',Transactions::class);
+Route::get('deposit',[Transactions::class,'deposit'])->name('deposit');
+Route::get('withdrawal',[Transactions::class,'withdrawal'])->name('withdrawal');
+Route::post('callback',[Transactions::class,'depositCallback'])->name('callback');
 Route::get('home', [HomeController::class, 'index'])->name('home');
 
 

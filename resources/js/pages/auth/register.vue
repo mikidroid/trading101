@@ -40,6 +40,11 @@
                     dense
                     :error-messages="form.errors.email"
                   />
+                  
+                   <vue-tel-input-vuetify  
+                   :error-messages="form.errors.phone"
+                   dark v-model="form.phone"></vue-tel-input-vuetify>
+                  
                   <v-text-field
                     v-model="form.password"
                     prepend-inner-icon="mdi-lock"
@@ -53,6 +58,7 @@
                     :type="showPassword ? 'text' : 'password'"
                     @click:append="showPassword = !showPassword"
                   />
+  
                   <v-text-field
                     v-model="form.password_confirmation"
                     prepend-inner-icon="mdi-lock"
@@ -87,6 +93,7 @@
 
 <script>
 import ApplicationLogo from "../../components/ApplicationLogo.vue";
+import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 import {colors} from '../../components/config/config.js'
 import GuestLayout from '../../layouts/GuestLayout.vue';
 export default {
@@ -100,6 +107,7 @@ export default {
         name: null,
         email: null,
         password: null,
+        phone:null,
         password_confirmation: null,
       }),
     };

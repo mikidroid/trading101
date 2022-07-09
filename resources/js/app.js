@@ -9,6 +9,7 @@ import { Link } from "@inertiajs/inertia-vue";
 import vuetify from "./plugins/vuetify";
 import { InertiaProgress } from "@inertiajs/progress";
 import AppLogo from './components/ApplicationLogo.vue';
+import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 
 //Nav
 import clientNav from './components/nav/clientNav.vue';
@@ -22,6 +23,9 @@ Vue.component("application-logo",AppLogo);
 Vue.component('guest-layout',guestLayout) ;
 Vue.component('client-nav',clientNav) ;
 
+Vue.use(VueTelInputVuetify, {
+  vuetify,
+});
 
 Vue.mixin({ methods: { route: window.route } });
 const app = document.getElementById("app");

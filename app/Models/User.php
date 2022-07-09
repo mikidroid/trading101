@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\MyTransaction;
+use App\Models\Investment;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,6 +29,10 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
         'name',
         'email',
         'password',
+        'phone',
+        'country',
+        'gender',
+        'profile_status'
     ];
 
     /**
@@ -47,4 +53,12 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    
+    public function transaction(){
+       return $this->hasMany(MyTransaction::class);
+    }
+    
+    public function investment(){
+       return $this->hasMany(Investment::class);
+    }
 }

@@ -21,12 +21,15 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn elevation="0" small light :color="color.accent" href="about">
-        <v-icon>mdi-chart-timeline-variant</v-icon> Trade
+      <v-btn elevation="0" small light :color="color.accent" href="about"> 
+      <Link as="button" :href="route('trade.index')" >
+        <v-icon>mdi-chart-timeline-variant</v-icon> Trade</Link>
       </v-btn>
 
-      <v-btn icon :color="color.accent">
+      <v-btn icon :color="color.accent" v-show="user">
+      <Link as="button" :href="route('profile.index')" >
         <v-icon>mdi-account</v-icon>
+        </Link>
       </v-btn>
 
     </v-app-bar>
@@ -78,14 +81,24 @@
             <v-list-item-icon>
               <v-icon>mdi-chart-timeline-variant</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Trade</v-list-item-title>
+             <v-list-item-title >           
+             <Link as="button" 
+             :href="route('trade.index')">
+             Trade
+            </Link>
+            </v-list-item-title>
+         </Link>
           </v-list-item>
           
         <v-list-item>
             <v-list-item-icon>
               <v-icon>mdi-cash</v-icon>
             </v-list-item-icon>
-            <v-list-item-title>Lottery</v-list-item-title>
+            <v-list-item-title>             
+            <Link as="button" 
+             :href="route('lottery.index')">
+             Lottery
+            </Link></v-list-item-title>
           </v-list-item>
           
         </v-list-item-group>
@@ -105,7 +118,9 @@
           <v-list-item
             link
           >
-            <v-list-item-title >New Invest</v-list-item-title>
+         <Link as="button" :href="route('investment.create')">
+           <v-list-item-title >New Invest</v-list-item-title>
+         </Link>
 
             <v-list-item-icon>
               <v-icon>mdi-Deposits</v-icon>
@@ -114,7 +129,9 @@
          <v-list-item
             link
           >
-            <v-list-item-title >Invest History</v-list-item-title>
+             <Link as="button" :href="route('investment.index')">
+           <v-list-item-title >Invest history</v-list-item-title>
+         </Link>
 
             <v-list-item-icon>
               <v-icon>mdi-Deposits</v-icon>
@@ -138,7 +155,7 @@
           <v-list-item
             link
            >
-          <Link as="button" :href="route('deposit.index')">
+          <Link as="button" :href="route('deposit')">
             <v-list-item-title >New Deposit</v-list-item-title>
          </Link>
             <v-list-item-icon>
@@ -150,7 +167,7 @@
          <v-list-item
             link
           >
-          <Link as="button" :href="route('withdrawal.index')">
+          <Link as="button" :href="route('withdrawal')">
             <v-list-item-title >Withdrawal</v-list-item-title>
          </Link>
 
@@ -162,7 +179,9 @@
         <v-list-item
             link
           >
-            <v-list-item-title >All Transactions</v-list-item-title>
+           <Link as="button" :href="route('transactions.index')">
+            <v-list-item-title >All transactions</v-list-item-title>
+         </Link>
 
             <v-list-item-icon>
               <v-icon>mdi-Deposits</v-icon>
@@ -226,7 +245,7 @@ import {colors} from '../../config/config.js'
     methods:{
      logout(){
        this.$inertia.form().post('/logout')
-       this.$toast.success("Logged out successful!")
+       
      }
     }
  

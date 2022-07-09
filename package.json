@@ -35,6 +35,7 @@
         "@inertiajs/inertia-vue": "^0.7.2",
         "@inertiajs/progress": "^0.2.6",
         "vue-number-animation": "^1.1.2",
+        "vue-tel-input-vuetify": "^1.5.3",
         "vue-toastification": "^1.7.11",
         "vuetify": "^2.5.8"
     }

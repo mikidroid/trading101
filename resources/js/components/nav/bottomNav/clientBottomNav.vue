@@ -13,7 +13,7 @@
    
    
       <v-btn>
-       <Link as="button" :href="route('home')">
+       <Link as="button" :href="route('/')">
         <!-- <span :style="{color:color.accent}">Invest</span> -->
         <v-icon :style="{color:color.p_text}">mdi-home</v-icon>
         </Link>
@@ -22,20 +22,21 @@
      
      <v-btn>
        <!-- <span :style="{color:color.accent}">Invest</span> -->
-
+     <Link as="button" :href="route('trade.index')">
         <v-icon :style="{color:color.p_text}">mdi-briefcase-clock-outline</v-icon>
+             </Link>
       </v-btn>
      <br/>
       <v-btn>
        <!-- <span :style="{color:color.accent}">Invest</span> -->
-
-        <v-icon :style="{color:color.p_text}">mdi-history</v-icon>
+     <Link as="button" :href="route('transactions.index')">
+        <v-icon :style="{color:color.p_text}">mdi-history</v-icon></Link>
       </v-btn>
      <br/>
      <v-btn >
       <!-- <span :style="{color:color.accent}">history</span> -->
-
-        <v-icon :style="{color:color.p_text}">mdi-gift-outline</v-icon>
+     <Link as="button" :href="route('lottery.index')">
+        <v-icon :style="{color:color.p_text}">mdi-gift-outline</v-icon></Link>
       </v-btn>
     </v-bottom-navigation>
     </div>

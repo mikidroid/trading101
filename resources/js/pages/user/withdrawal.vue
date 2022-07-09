@@ -7,7 +7,7 @@
           :items="coins"
           menu-props="auto"
           dark
-          label="Select Saved Wallet"
+          label="Select Coin"
           hide-details
           class="my-5 mt-4 pa-3"
           :error-messages="form.errors.email"
@@ -15,11 +15,21 @@
           single-line
         ></v-select>
                    
-                 
+                 <v-text-field
+                    v-model="form.password"
+                    prepend-inner-icon="mdi-address"
+                    label="Enter wallet address"
+                    rounded
+                    dark
+                    outlined
+                    type="text"
+                    :error-messages="form.errors.password"
+   
+                  />
                   <v-text-field
                     v-model="form.password"
                     prepend-inner-icon="mdi-currency-usd"
-                    label="Amount(USD)"
+                    :label="'Amount (USD) - Bal: $'+user.bal"
                     rounded
                     dark
                     outlined
@@ -62,7 +72,7 @@ export default {
   
  computed: {
     user(){
-     return this.props.auth.user
+     return this.$page.props.auth.user
     }
  },
 }
