@@ -1,37 +1,160 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\MyTransaction;
+use App\Models\User;
+use Coinremitter\Coinremitter;
 use Inertia\Inertia;
+use Auth;
 class Transactions extends Controller
 {
+ 
 
-    public function index()
+    public function index(Request $request)
     {
         //
-        return Inertia::render('user/transactions');
+        $user = User::find($request->user()->id);
+        $data = $user->myTransaction;
+        return Inertia::render('user/transactions',['data'=>$data]);
     }
 
 
     public function deposit(Request $request)
     {
         //
-        $request->session()->flash('success','done');
+       // $request->session()->flash('success','done');
         return Inertia::render('user/deposit');
     }
+    
+    public function DepositStore(Request $request)
+    {
+        $user = $request->user();
+        $request->validate([
+            'amount' => 'min:'.env('DEPOSIT_MIN').'|required|integer',
+            'coin' => 'string|required'
+          ]);
+        $random = Str::random(5).substr(time(), 6,8).Str::random(5);
+        $details = [
+          'user_id'=>$user->id,
+          'type'=>'deposit',
+          'coin'=>$request->coin,
+          'amount'=>$request->amount,
+          'ref'=> $random,
+          'name'=>$user->name,
+          'email'=>$user->email,
+         ];
+        //$user->depositFloat($request->amount);
+        $Trans = new MyTransaction($details);
+        $Trans->save(); 
+        //coin functions
+        $coin = new Coinremitter($request->coin);
+        $notify_url=env('SITE_URL')."/notify_url.php?ref=".$Trans->ref."&coin=".$Trans->coin;
+        $fail_url=env('SITE_URL')."/deposit/fail";
+        $success_url=env('SITE_URL')."/deposit/success";
+        $data = [
+           'amount'=> $request->amount,
+           'custom_data1'=> $Trans->ref,
+           'notify_url'=>$notify_url,
+           'currency'=>'USD',
+           'fail_url'=>$fail_url,
+           'success_url'=>$success_url
+        ];
+        $coin2 = $coin->create_invoice($data);
+        //$coin2 = json_decode(json_encode($coin2)); 
+       //$coin2 = $coin2->data; 
+       //echo "<script> window.location.href='https://google.com' </script>";
+       //this echo command helps me see the redirecting output on local server if not, it shows a blank page
+        //echo("new redirect");
+        return $coin2;
+        //return redirect()->away($coin2->url);
+    }
+    
+    public function DepositCallback(Request $request)
+    {
+       /*
+       //Get request bcus of params added to url
+        $ref = $_GET['ref'];
+        //$secret = $_GET['secret'];
+        //other post request
+        $address = $_GET['address'];
+        $coin_value = $_GET['coin_value'];
+        $usd_value = $_GET['usd_value'];
+        $status_code = $_GET['status_code'];
+        $confirmations = $_GET['confirmations'];
+        //$trx_hash = $_GET['transaction_hash'];
+        */
+        
+        $ref = $_GET['ref'];
+        $coin = $_GET['coin'];
+        //other post request
+        $address = $_POST['address'];
+        $paid_amount = $_POST['paid_amount'];
+        $coin_value = $paid_amount[$coin];
+        $usd_value = $paid_amount['USD'];
+        $url = $_POST['url'];
+        $status_code = $_POST['status_code'];
+        $invoice_id = $_POST['invoice_id'];
+        $payment_history = $_POST['payment_history'];
+        $confirmations = $payment_history['confirmation'];
+        $data = MyTransaction::whereRef($ref)->first();
 
+        if($data->status == 0){
+          if ($confirmations>=2){
+             $data->coin_value = $coin_value;
+             $data->coin_address = $address;
+             $data->status = 1;
+             $data->save();
+             $user = User::findOrFail($data->user_id);
+             $user->depositFloat($data->amount);
+             //send mail here
+          }
+        }
+    }
+    
+    public function success_url(Request $request)
+    {
+        return redirect('/')->with('success','Deposit success! Awaiting confirmation.');
+    }
+    
+   public function fail_url(Request $request)
+    {
+        return redirect('/')->with('error','Deposit failed! Try again!');
+    }
 
-    public function withdrawal()
+    public function withdrawal(Request $request)
     {
         //might be empty if user isnt logged in so configure guard for this path
        return Inertia::render('user/withdrawal');
     }
 
      
-    public function store(Request $request)
+    public function WithdrawalStore(Request $request)
     {
-        //
+      $user = $request->user();
+        $request->validate([
+            'amount' => 'min:'.env('DEPOSIT_MIN').'|required|integer',
+            'coin' => 'string|required'
+          ]);
+        $random = Str::random(5).substr(time(), 6,8).Str::random(5);
+        $coin_value = file_get_contents('');
+        $details = [
+          'user_id'=>$user->id,
+          'type'=>'withdrawal',
+          'coin'=>$request->coin,
+          'coin_address'=>$request->coin_address,
+          'coin_value'=>$coin_value,
+          'amount'=>$request->amount,
+          'ref'=> $random,
+          'name'=>$user->name,
+          'email'=>$user->email,
+         ];
+        //$user->depositFloat($request->amount);
+        $Trans = new MyTransaction($details);
+        $Trans->save(); 
+        
+        return redirect('/');
     }
 
     /**
@@ -63,33 +186,9 @@ class Transactions extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-        $Trans = Transaction::findOrFail($id);
-        $User = $request->user();
-        $data['trans'] = $Trans;
-        $data['user'] = $User;
-        //send data to email
-        switch($Trans->type){
-         case 'deposit':
-          $Trans->status=1;
-          $User->depositFloat($Trans->amount);
-          //send mail here
-          return back()->with('success','Deposit confirmed');
-          break;
-         case 'withdrawal':
-          $Trans->status=1;
-          $User->withdrawFloat($Trans->amount);
-          //send mail here
-          return back()->with('success','withdraw confirmed');
-        }
-    }
     
-    public function depositCallback(Request $request)
-    {
-        
-    }
+    
+    
 
     /**
      * Remove the specified resource from storage.
@@ -100,5 +199,8 @@ class Transactions extends Controller
     public function destroy($id)
     {
         //
+       $trans =MyTransaction::find($id);
+       $trans->truncate();
+       return back()->with('success','Transaction deleted');
     }
 }

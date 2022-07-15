@@ -1,30 +1,30 @@
 <template>
   <guest-layout v-bind="{title:'Deposit'}">
    <v-container>
-              <v-form @submit.prevent="">
+              <v-form @submit.prevent="deposit">
            <v-select
-          v-model="coin"
+          v-model="form.coin"
           :items="coins"
           menu-props="auto"
           dark
           label="Select Coin"
           hide-details
           class="my-5 mt-4 pa-3"
-          :error-messages="form.errors.email"
+          :error-messages="form.errors.coin"
           prepend-icon="mdi-map"
           single-line
         ></v-select>
                    
                  
                   <v-text-field
-                    v-model="form.password"
+                    v-model="form.amount"
                     prepend-inner-icon="mdi-currency-usd"
                     label="Amount(USD)"
                     rounded
                     dark
                     outlined
                     type="number"
-                    :error-messages="form.errors.password"
+                    :error-messages="form.errors.amount"
    
                   />
      
@@ -42,7 +42,9 @@ import {colors} from '../../components/config/config.js';
 
 export default {
  methods:{
-  
+  deposit(){
+    this.form.post('/deposit/store');
+  },
    
  },
  data(){
@@ -54,9 +56,7 @@ export default {
       isLoading: false,
       form: this.$inertia.form({
         coin:'BTC',
-        email: null,
-        password: null,
-        remember_me: false,
+        amount: null
       })}
  },
   
@@ -65,13 +65,6 @@ export default {
      return this.props.auth.user
     }
  },
- created(){
-const message = this.$page.props.flash;
-      
-        if (message.success != null) {
-              this.$toast.success(this.$page.props.flash.success);}
-         if (message.error != null) {
-              this.$toast.error(this.$page.props.flash.error);}
-  },
+ 
 }
 </script>

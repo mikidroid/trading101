@@ -30,6 +30,7 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
         'email',
         'password',
         'phone',
+        'is_admin',
         'country',
         'gender',
         'profile_status'
@@ -54,7 +55,7 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
         'email_verified_at' => 'datetime',
     ];
     
-    public function transaction(){
+    public function myTransaction(){
        return $this->hasMany(MyTransaction::class);
     }
     

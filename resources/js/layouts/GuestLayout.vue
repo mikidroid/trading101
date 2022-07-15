@@ -14,5 +14,14 @@ export default {
     }
   },
   
+  created(){
+     const msg = this.$page.props.flash;
+     if(msg.success){
+      this.$toast.success(msg.success)
+     }
+     if(msg.error){
+      this.$toast.error(msg.error)
+   }
+  }
 };
 </script>

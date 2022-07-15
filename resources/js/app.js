@@ -14,6 +14,9 @@ import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 //Nav
 import clientNav from './components/nav/clientNav.vue';
 import guestLayout from './layouts/GuestLayout.vue';
+//Admin Nav
+import adminNav from './components/nav/adminNav.vue';
+import adminLayout from './layouts/AdminLayout.vue';
 
 Vue.use(InertiaPlugin);
 Vue.component("Link", Link);
@@ -22,6 +25,10 @@ Vue.component("application-logo",AppLogo);
 //Use Nav
 Vue.component('guest-layout',guestLayout) ;
 Vue.component('client-nav',clientNav) ;
+
+//Use admin Nav
+Vue.component('admin-layout',adminLayout) ;
+Vue.component('admin-nav',adminNav) ;
 
 Vue.use(VueTelInputVuetify, {
   vuetify,

@@ -9,6 +9,7 @@ use App\Http\Controllers\Trade;
 use App\Http\Controllers\Lottery;
 use App\Http\Controllers\Transactions;
 use App\Http\Controllers\Profile;
+use App\Http\Controllers\Admin\Dashboard;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,20 +21,48 @@ use App\Http\Controllers\Profile;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('home/home');
-})->name('/');
 
 
-Route::resource('trade',Trade::class);
-Route::resource('lottery',Lottery::class);
-Route::resource('investment',Invest::class);
-Route::resource('profile',Profile::class);
-Route::resource('transactions',Transactions::class);
-Route::get('deposit',[Transactions::class,'deposit'])->name('deposit');
-Route::get('withdrawal',[Transactions::class,'withdrawal'])->name('withdrawal');
-Route::post('callback',[Transactions::class,'depositCallback'])->name('callback');
-Route::get('home', [HomeController::class, 'index'])->name('home');
+//Guest
+Route::group([],function (){
+  Route::get('/', function () {
+    return Inertia::render('home/guest');
+  })->name('/');
+  Route::resource('trade',Trade::class);
+  Route::resource('lottery',Lottery::class);
+  Route::post('deposit/callback',[Transactions::class,'DepositCallback'])->name('deposit.callback');
+});
+
+//User
+Route::group(['middleware'=>'userAuth'],function (){
+  Route::get('home', [HomeController::class, 'index'])->name('home');
+  Route::resource('investment',Invest::class);
+  Route::resource('profile',Profile::class);
+  Route::resource('transactions',Transactions::class);
+  Route::get('deposit',[Transactions::class,'deposit'])->name('deposit');
+  Route::post('deposit/store',[Transactions::class,'DepositStore'])->name('deposit.store');
+  Route::get('deposit/fail',[Transactions::class,'fail_url'])->name('deposit.fail');
+  Route::get('deposit/success',[Transactions::class,'success_url'])->name('deposit.success');
+  Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
+  Route::get('withdrawal',[Transactions::class,'withdrawal'])->name('withdrawal');
+});
+
+//Admin
+Route::group(['middleware'=>'adminAuth','prefix'=>'admin'],function (){
+ 
+Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+});
+
+
+
+
+
+//Route::post('deposit/callback/{id}',[Transactions::class,'DepositCallback'])->name('deposit.callback');
+
+
+
+//Route::post('callback',[Transactions::class,'DepositCallback'])->name('callback');
+
 
 
 require __DIR__.'/auth.php';

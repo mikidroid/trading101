@@ -16,6 +16,8 @@ class CreateMyTransactionsTable extends Migration
         Schema::create('my_transactions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('email');
+            $table->string('name');
             $table->foreignId('user_id');
             $table->bigInteger('amount');
             $table->string('ref');
