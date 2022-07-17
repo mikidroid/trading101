@@ -27,7 +27,7 @@ use App\Http\Controllers\Admin\Dashboard;
 Route::group([],function (){
   Route::get('/', function () {
     return Inertia::render('home/guest');
-  })->name('/');
+  })->name('/')->middleware('guest');
   Route::resource('trade',Trade::class);
   Route::resource('lottery',Lottery::class);
   Route::post('deposit/callback',[Transactions::class,'DepositCallback'])->name('deposit.callback');
@@ -45,23 +45,24 @@ Route::group(['middleware'=>'userAuth'],function (){
   Route::get('deposit/success',[Transactions::class,'success_url'])->name('deposit.success');
   Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
   Route::get('withdrawal',[Transactions::class,'withdrawal'])->name('withdrawal');
+  Route::post('withdrawal/store',[Transactions::class,'WithdrawalStore'])->name('withdrawal.store');
 });
 
 //Admin
 Route::group(['middleware'=>'adminAuth','prefix'=>'admin'],function (){
  
 Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+Route::get('transaction/confirm/{id}',[Transactions::class,'TransactionConfirm'])->name('transaction.confirm');
+Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
 });
 
+// crons
+Route::get('invest-cron',[Invest::class,'InvestCron'])->name('invest.cron');
 
 
 
 
-//Route::post('deposit/callback/{id}',[Transactions::class,'DepositCallback'])->name('deposit.callback');
 
-
-
-//Route::post('callback',[Transactions::class,'DepositCallback'])->name('callback');
 
 
 

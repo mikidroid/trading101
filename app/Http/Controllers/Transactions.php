@@ -32,7 +32,7 @@ class Transactions extends Controller
     {
         $user = $request->user();
         $request->validate([
-            'amount' => 'min:'.env('DEPOSIT_MIN').'|required|integer',
+            'amount' => 'min:'.env('DEPOSIT_MIN').'|max:'.env('DEPOSIT_MAX').'|required|integer',
             'coin' => 'string|required'
           ]);
         $random = Str::random(5).substr(time(), 6,8).Str::random(5);
@@ -62,12 +62,12 @@ class Transactions extends Controller
            'success_url'=>$success_url
         ];
         $coin2 = $coin->create_invoice($data);
-        //$coin2 = json_decode(json_encode($coin2)); 
-       //$coin2 = $coin2->data; 
-       //echo "<script> window.location.href='https://google.com' </script>";
+        $coin2 = json_decode(json_encode($coin2)); 
+        //$coin2 = $coin2->data; 
        //this echo command helps me see the redirecting output on local server if not, it shows a blank page
-        //echo("new redirect");
-        return $coin2;
+         //echo("new redirect");
+        //dd($coin2);
+         return redirect()->away($coin2->data->url);
         //return redirect()->away($coin2->url);
     }
     
@@ -108,6 +108,7 @@ class Transactions extends Controller
              $data->save();
              $user = User::findOrFail($data->user_id);
              $user->depositFloat($data->amount);
+             $user->save();
              //send mail here
           }
         }
@@ -115,12 +116,12 @@ class Transactions extends Controller
     
     public function success_url(Request $request)
     {
-        return redirect('/')->with('success','Deposit success! Awaiting confirmation.');
+        return redirect('/home')->with('success','Deposit success! Awaiting confirmation.');
     }
     
    public function fail_url(Request $request)
     {
-        return redirect('/')->with('error','Deposit failed! Try again!');
+        return redirect('/home')->with('error','Deposit failed! Try again!');
     }
 
     public function withdrawal(Request $request)
@@ -133,74 +134,73 @@ class Transactions extends Controller
     public function WithdrawalStore(Request $request)
     {
       $user = $request->user();
+      $bal = $user->balanceFloat;
         $request->validate([
-            'amount' => 'min:'.env('DEPOSIT_MIN').'|required|integer',
+            'amount' => 'min:'.env('WITHDRAWAL_MIN').'|max:'.env('WITHDRAWAL_MAX').'|required|integer',
             'coin' => 'string|required'
           ]);
+        if($request->amount > $bal){
+          return redirect('/home')->with('error','Insufficient balance!');
+        }
         $random = Str::random(5).substr(time(), 6,8).Str::random(5);
-        $coin_value = file_get_contents('');
+      //  $coin_value = file_get_contents('');
         $details = [
           'user_id'=>$user->id,
           'type'=>'withdrawal',
           'coin'=>$request->coin,
           'coin_address'=>$request->coin_address,
-          'coin_value'=>$coin_value,
+         // 'coin_value'=>$coin_value,
           'amount'=>$request->amount,
           'ref'=> $random,
           'name'=>$user->name,
           'email'=>$user->email,
          ];
-        //$user->depositFloat($request->amount);
+        $user->withdrawFloat($request->amount);
         $Trans = new MyTransaction($details);
         $Trans->save(); 
-        
-        return redirect('/');
+        //send admin mail
+        return redirect('/home')->with('success','Withdrawal in progress..');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+     
+    public function TransactionConfirm($id)
+    {
+       $trans =MyTransaction::find($id);
+       $user = User::find($trans->user_id);
+       //if deposit
+       if($trans->type == 'deposit'){
+        $user->depositFloat($trans->amount);
+        $trans->status = 1;
+        $user->save();
+        $trans->save();
+        //send email here
+        return back()->with('success','Deposit confirmed!');
+       }
+       //if withdrawal
+       if($trans->type == 'withdrawal'){
+        $trans->status = 1;
+        $trans->save();
+        //send email here
+        return back()->with('success','Withdrawal confirmed!');
+       }
+    }
     
-    
-    
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-      * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
        $trans =MyTransaction::find($id);
-       $trans->truncate();
+       $trans->delete();
        return back()->with('success','Transaction deleted');
     }
 }

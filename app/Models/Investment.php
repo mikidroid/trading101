@@ -13,10 +13,11 @@ class Investment extends Model
         'name',
         'amount',
         'user_id',
+        'ref',
         'email',
         'start_date',
         'end_date',
-        'count',
+        'interest',
         'duration',
         'status'
     ];

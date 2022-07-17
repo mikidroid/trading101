@@ -1,18 +1,18 @@
 <template>
   <guest-layout v-bind="{title:'Transaction'}">
  
- <tableAdmin :data="data" :headers="headers"/>
+ <transUser :data="data" :headers="headers"/>
  
   </guest-layout>
 </template>
 
 <script>
 import {colors} from '../../components/config/config.js';
-import tableAdmin from '../inc/table-admin.vue';
+import transUser from '../inc/trans-user.vue';
 
 export default {
  props:['data'],
- components:{tableAdmin},
+ components:{transUser},
  data(){
     return{
      search:"",
@@ -42,8 +42,8 @@ export default {
          value:'coin',
         },
         {
-         text:'ref',
-         value:'ref'
+         text:'coin address',
+         value:'coin_address',
         },
         {
          text:'amount',
@@ -55,7 +55,11 @@ export default {
          value:'status'
         },
         {
-         text:'action',
+         text:'ref',
+         value:'ref'
+        },
+        {
+         text:'date',
          value:'created_at'
         },
        ]
