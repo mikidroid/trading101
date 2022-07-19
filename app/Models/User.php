@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\MyTransaction;
 use App\Models\Investment;
+use App\Models\Lottery;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -61,5 +62,9 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
     
     public function investment(){
        return $this->hasMany(Investment::class);
+    }
+    
+    public function lottery(){
+     return $this->hasMany(Lottery::class);
     }
 }
