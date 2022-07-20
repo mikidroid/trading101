@@ -29,6 +29,7 @@ Route::group([],function (){
   Route::get('/', function () {
     return Inertia::render('home/guest');
   })->name('/')->middleware('guest');
+  Route::get('verify-account/confirm/{email}',[HomeController::class,'VerifyAccount'])->name('verify.account');
   Route::resource('trade',Trade::class);
   Route::resource('lottery',MyLottery::class);
   Route::post('deposit/callback',[Transactions::class,'DepositCallback'])->name('deposit.callback');
@@ -48,15 +49,17 @@ Route::group(['middleware'=>'userAuth'],function (){
   Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
   Route::get('withdrawal',[Transactions::class,'withdrawal'])->name('withdrawal');
   Route::post('withdrawal/store',[Transactions::class,'WithdrawalStore'])->name('withdrawal.store');
-  Route::get('lottery/claim/{id}',[MyLottery::class,'ClaimLottery'])->name('lottery.claim');
+  Route::get('lottery-claim/{id}',[MyLottery::class,'ClaimLottery'])->name('lottery.claim');
 });
 
 //Admin
 Route::group(['middleware'=>'adminAuth','prefix'=>'admin'],function (){
  
 Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
+Route::get('deposits',[Dashboard::class,'DepositsAdmin'])->name('deposits.admin');
 Route::get('transaction/confirm/{id}',[Transactions::class,'TransactionConfirm'])->name('transaction.confirm');
 Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
+Route::get('withdrawal/reject/{id}',[Transactions::class,'WithdrawalRejected'])->name('withdrawal.reject');
 });
 
 // crons

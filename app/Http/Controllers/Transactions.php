@@ -8,6 +8,14 @@ use App\Models\User;
 use Coinremitter\Coinremitter;
 use Inertia\Inertia;
 use Auth;
+use App\Notifications\User\Deposit;
+use App\Notifications\User\DepositComplete;
+use App\Notifications\User\Withdrawal;
+use App\Notifications\User\WithdrawalComplete;
+use App\Notifications\User\WithdrawalReject;
+use App\Notifications\Admin\WithdrawalAdmin;
+use Notification;
+
 class Transactions extends Controller
 {
  
@@ -50,7 +58,8 @@ class Transactions extends Controller
         $Trans->save(); 
         //coin functions
         $coin = new Coinremitter($request->coin);
-        $notify_url=env('SITE_URL')."/notify_url.php?ref=".$Trans->ref."&coin=".$Trans->coin;
+        //$notify_url=env('SITE_URL')."/notify_url.php?ref=".$Trans->ref."&coin=".$Trans->coin;
+        $notify_url=env('SITE_URL')."/deposit/callback?ref=".$Trans->ref."&coin=".$Trans->coin;
         $fail_url=env('SITE_URL')."/deposit/fail";
         $success_url=env('SITE_URL')."/deposit/success";
         $data = [
@@ -63,6 +72,9 @@ class Transactions extends Controller
         ];
         $coin2 = $coin->create_invoice($data);
         $coin2 = json_decode(json_encode($coin2)); 
+        if(isset($coin2->data->url)){
+          Notification::send($user, new Deposit($Trans));
+        }
         //$coin2 = $coin2->data; 
        //this echo command helps me see the redirecting output on local server if not, it shows a blank page
          //echo("new redirect");
@@ -110,6 +122,10 @@ class Transactions extends Controller
              $user->depositFloat($data->amount);
              $user->save();
              //send mail here
+             Notification::send($user, new DepositComplete($Trans));
+             //send admin mail
+             $admin = User::whereIs_admin(true)->get();
+             Notification::send($admin,new DepositAdmin($Trans));
           }
         }
     }
@@ -126,7 +142,6 @@ class Transactions extends Controller
 
     public function withdrawal(Request $request)
     {
-        //might be empty if user isnt logged in so configure guard for this path
        return Inertia::render('user/withdrawal');
     }
 
@@ -135,16 +150,16 @@ class Transactions extends Controller
     {
       $user = $request->user();
       $bal = $user->balanceFloat;
-        $request->validate([
+      $request->validate([
             'amount' => 'min:'.env('WITHDRAWAL_MIN').'|max:'.env('WITHDRAWAL_MAX').'|required|integer',
             'coin' => 'string|required'
           ]);
-        if($request->amount > $bal){
-          return redirect('/home')->with('error','Insufficient balance!');
-        }
-        $random = Str::random(5).substr(time(), 6,8).Str::random(5);
-      //  $coin_value = file_get_contents('');
-        $details = [
+      if($request->amount > $bal){
+         return redirect('/home')->with('error','Insufficient balance!');
+      }
+      $random = Str::random(5).substr(time(), 6,8).Str::random(5);
+        //$coin_value = file_get_contents('');
+      $details = [
           'user_id'=>$user->id,
           'type'=>'withdrawal',
           'coin'=>$request->coin,
@@ -155,14 +170,17 @@ class Transactions extends Controller
           'name'=>$user->name,
           'email'=>$user->email,
          ];
-        $user->withdrawFloat($request->amount);
-        $Trans = new MyTransaction($details);
-        $Trans->save(); 
-        //send admin mail
-        return redirect('/home')->with('success','Withdrawal in progress..');
+      $user->withdrawFloat($request->amount);
+      $Trans = new MyTransaction($details);
+      $Trans->save(); 
+      //send admin mail
+      $admin = User::whereIs_admin(true)->get();
+      Notification::send($admin,new WithdrawalAdmin($Trans));
+      //send user mail
+      Notification::send($user,new Withdrawal($Trans));
+      return redirect('/home')->with('success','Withdrawal in progress..');
     }
 
-    
     public function show($id)
     {
         //
@@ -185,7 +203,8 @@ class Transactions extends Controller
         $trans->status = 1;
         $user->save();
         $trans->save();
-        //send email here
+        //send deposit email here
+        Notification::send($user,new DepositComplete($Trans));
         return back()->with('success','Deposit confirmed!');
        }
        //if withdrawal
@@ -193,8 +212,20 @@ class Transactions extends Controller
         $trans->status = 1;
         $trans->save();
         //send email here
+        Notification::send($user,new WithdrawalComplete($Trans));
         return back()->with('success','Withdrawal confirmed!');
        }
+    }
+    
+    public function WithdrawalRejected($id)
+    {
+       $trans =MyTransaction::find($id);
+       $user = User::find($trans->user_id);
+       $user->depositFloat($trans->amount);
+       $trans->delete();
+       //send mail
+       Notification::send($user,new WithdrawalReject($Trans));
+       return back()->with('success','Withdrawal rejected');
     }
     
     public function destroy($id)

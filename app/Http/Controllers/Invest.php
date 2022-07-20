@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Str;
 use App\Models\Investment;
+use App\Notifications\User\InvestmentMail;
+use App\Notifications\User\InvestmentComplete;
+use App\Notifications\User\InvestmentUpdate;
 use App\Models\User;
 use Auth;
+use Notification;
 class Invest extends Controller
 {
 
@@ -72,10 +76,11 @@ class Invest extends Controller
           'status'=>1
          ];
         $user->withdrawFloat($request->amount);
-        $Trans = new Investment($details);
-        $Trans->save(); 
+        $Inv = new Investment($details);
+        $Inv->save(); 
         //send admin mail
         //send user mail
+        Notification::send($user, new InvestmentMail($Inv));
         return redirect('/home')->with('success','You successfully invested '.$request->amount);
     }
 
@@ -129,12 +134,14 @@ class Invest extends Controller
             $user->depositFloat($sum);
             $inv->status = 0;
             $inv->save();
+            Notification::send($user, new InvestmentComplete($Inv));
           } else{
          //calculate percent
          $percent = $inv->amount/100*env('INTEREST_PERCENT');
          $profit->depositFloat($percent);
          $inv->interest += $percent;
          $inv->save();
+         Notification::send($user, new InvestmentUpdate($Inv));
           }
         }
     }

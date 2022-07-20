@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class WithdrawalAdmin extends Notification
 {
     use Queueable;
-
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -41,9 +41,13 @@ class WithdrawalAdmin extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('User Withdraw Request!')
+            ->line('Dear Admin, a user just requested to withdraw $'.$this->data->amount.'from this platform.')
+            ->line('Ref code: '.$this->data->ref.'')
+            ->line('You are required to fund this '.$this->data->coin.' wallet.')
+            ->line('Address: '.$this->data->coin_address.'')
+            ->line('After funding the above address, confirm the withdrawal by clicking the button below.'
+            )->action('Confirm payment', url('admin/transaction/confirm/'.$this->data->id));
     }
 
     /**

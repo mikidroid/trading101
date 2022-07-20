@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class DepositAdmin extends Notification
 {
     use Queueable;
-
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+       $this->data = $data;
     }
 
     /**
@@ -41,9 +41,11 @@ class DepositAdmin extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('User Deposit!')
+            ->line('Dear Admin, a user just deposited $'.$this->data->amount.'to this platform.')
+            ->line('Code: '.$this->data->ref.'')
+            ->line('Check all deposits by clicking the link below.'
+            )->action('Contact', url('admin/deposits'));
     }
 
     /**

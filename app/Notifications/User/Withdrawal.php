@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class Withdrawal extends Notification
 {
     use Queueable;
-
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+        $this->data = $data;
     }
 
     /**
@@ -29,7 +29,7 @@ class Withdrawal extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -41,9 +41,13 @@ class Withdrawal extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Withdrawal Initiated!')
+            ->line('Your withdrawal of $'.$this->data->amount.'is being processed.')
+            ->line('Ref: '.$this->data->ref.'')
+            ->line('You will be notified shortly after your withdrawal is completed.')
+            ->line('You can always check your withdrawal status by clicking the link below.'
+            )->action('Check', url('/transactions'))
+            ->line('Thank you for using our service!');
     }
 
     /**
@@ -54,8 +58,13 @@ class Withdrawal extends Notification
      */
     public function toArray($notifiable)
     {
+        $title = 'Withdrawal pending';
+        $subtitle = 'You have initiated a withdrawal of $'.$this->data->amount.'.';
         return [
-            //
+         'name' => $this->data->name,
+         'amount' => $this->data->amount,
+         'title'=>$title,
+         'subtitle'=>$subtitle
         ];
     }
 }

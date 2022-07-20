@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class WithdrawalComplete extends Notification
 {
     use Queueable;
-
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+       $this->data = $data;
     }
 
     /**
@@ -29,7 +29,7 @@ class WithdrawalComplete extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -41,9 +41,14 @@ class WithdrawalComplete extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Withdrawal Success!')
+            ->line('Your withdrawal of $'.$this->data->amount.'is successful.')
+            ->line('Ref: '.$this->data->ref.'')
+            ->line('Requested funds have been sent to your provided wallet address')
+            ->line('You can always check your withdrawal status by clicking the link below.'
+            )->action('Check', url('/transactions'))
+            ->line('Note: Payments are confirmed securely and automatically on the blockchain network.')
+            ->line('Thank you for using our service!');
     }
 
     /**
@@ -54,8 +59,13 @@ class WithdrawalComplete extends Notification
      */
     public function toArray($notifiable)
     {
+        $title = 'Withdrawal complete!';
+        $subtitle = 'You have completed a withdrawal of $'.$this->data->amount.'.';
         return [
-            //
+         'name' => $this->data->name,
+         'amount' => $this->data->amount,
+         'title'=>$title,
+         'subtitle'=>$subtitle
         ];
     }
 }

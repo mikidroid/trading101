@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class Deposit extends Notification
 {
     use Queueable;
-
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+       $this->data = $data;
     }
 
     /**
@@ -29,7 +29,7 @@ class Deposit extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -41,9 +41,13 @@ class Deposit extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->subject('Deposit Invoice')
+            ->line('This is an invoice of your required payment of $'.$this->data->amount.'.')
+            ->line('Invoice number: '.$this->data->ref.'')
+            ->line('After payment completion, check your transaction status anytime by clicking the link below.'
+            )->action('Check', url('/transactions'))
+            ->line('Note: Payments are confirmed securely and automatically on the blockchain network.')
+            ->line('Thank you for using our service!');
     }
 
     /**
@@ -54,8 +58,13 @@ class Deposit extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
+        $title = 'Deposit invoice';
+        $subtitle = 'You have a pending deposit of $'.$this->data->amount.'.';
+         return [
+         'name' => $this->data->name,
+         'amount' => $this->data->amount,
+         'title'=>$title,
+         'subtitle'=>$subtitle
         ];
     }
 }

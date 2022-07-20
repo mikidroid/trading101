@@ -7,6 +7,20 @@
     class="mx-auto"
     max-width="400"
     :style="{borderRadius:'15px'}"
+    v-show="!data"
+    >
+      <v-card-text class="justify-center text-center">
+       <div class="text-center text-h4 font-weight-black">
+       No Winner Yet!
+       </div>
+       </v-card-text>
+  </v-card>
+   
+  <v-card
+    class="mx-auto"
+    max-width="400"
+    :style="{borderRadius:'15px'}"
+    v-show="data"
   >
     <v-img
       class="white--text align-end"
@@ -36,10 +50,10 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Name</v-list-item-title>
-          <v-list-item-subtitle>Uche Sam</v-list-item-subtitle>
+          <v-list-item-subtitle>{{data.name}}</v-list-item-subtitle>
         </v-list-item-content>
         <v-list-item-action>
-         <v-icon color='green'>
+         <v-icon color='blue'>
          mdi-check-decagram
          </v-icon>
         </v-list-item-action>
@@ -50,14 +64,14 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Amount</v-list-item-title>
-          <v-list-item-subtitle>$400</v-list-item-subtitle>
+          <v-list-item-subtitle>${{data.amount}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
     <v-divider></v-divider>
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title>Date</v-list-item-title>
-          <v-list-item-subtitle>4 Days ago...</v-list-item-subtitle>
+          <v-list-item-subtitle>{{data.created_at}}</v-list-item-subtitle>
         </v-list-item-content>
       </v-list-item>
       
@@ -66,7 +80,7 @@
 </v-card-text>
 
 <v-card-actions class="mb-3">
- <v-btn block :color="color.accent">
+ <v-btn :disabled="data.claimed" :href="route('lottery.claim',{id:data.id})" v-show="data.user_id == user.id" block :color="color.accent">
   Claim
  </v-btn>
 </v-card-actions>
@@ -96,5 +110,6 @@ export default {
      return this.$page.props.auth.user
     }
  },
+ props:['data']
 }
 </script>
