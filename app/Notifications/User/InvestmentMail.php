@@ -10,15 +10,15 @@ use Illuminate\Notifications\Notification;
 class InvestmentMail extends Notification
 {
     use Queueable;
-   
+    public $data;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data)
     {
-        //
+       $this->data = $data;
     }
 
     /**
@@ -29,7 +29,7 @@ class InvestmentMail extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -40,10 +40,14 @@ class InvestmentMail extends Notification
      */
     public function toMail($notifiable)
     {
+       $d = $this->data;
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+                    ->subject('New Investment')
+                    ->line("Way to go $d->name, you just invested $d->amount on our platform")
+                    ->line("Expect full returns in $d->duration days time.")
+                    ->line("Check investment status by clicking the button below")
+                    ->action('Check', url('/investment'))
+                    ->line('Thank you for using our service!');
     }
 
     /**
@@ -54,8 +58,13 @@ class InvestmentMail extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
+        $title = 'New Investment';
+        $subtitle = 'You invested $'.$this->data->amount.'.';
+         return [
+         'name' => $this->data->name,
+         'amount' => $this->data->amount,
+         'title'=>$title,
+         'subtitle'=>$subtitle
         ];
     }
 }

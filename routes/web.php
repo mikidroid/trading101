@@ -36,7 +36,7 @@ Route::group([],function (){
 });
 
 //User
-Route::group(['middleware'=>'userAuth'],function (){
+Route::group(['middleware'=>['auth','userAuth']],function (){
   Route::get('home', [HomeController::class, 'index'])->name('home');
   Route::resource('notifications',Notifications::class);
   Route::resource('investment',Invest::class);
@@ -53,7 +53,7 @@ Route::group(['middleware'=>'userAuth'],function (){
 });
 
 //Admin
-Route::group(['middleware'=>'adminAuth','prefix'=>'admin'],function (){
+Route::group(['middleware'=>['auth','adminAuth'],'prefix'=>'admin'],function (){
  
 Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
 Route::get('deposits',[Dashboard::class,'DepositsAdmin'])->name('deposits.admin');

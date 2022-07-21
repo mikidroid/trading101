@@ -10,15 +10,17 @@ use Illuminate\Notifications\Notification;
 class InvestmentComplete extends Notification
 {
     use Queueable;
-
+    public $data;
+    public $total_profit;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($data,$sum)
     {
-        //
+        $this->data = $data;
+        $this->total_profit = $sum;
     }
 
     /**
@@ -29,7 +31,7 @@ class InvestmentComplete extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database','mail'];
     }
 
     /**
@@ -40,10 +42,14 @@ class InvestmentComplete extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+      $d = $this->data;
+       return (new MailMessage)
+                    ->subject('Investment complete!')
+                    ->line("Congrats $d->name, your investment is complete and your total interest of $this->total_profit has been added to your main balance.")
+                    ->line("$d->interest was removed from your profit balance in this process.")
+                    ->line("Check investment status by clicking the button below")
+                    ->action('Check', url('/investment'))
+                    ->line('Thank you for using our service!');
     }
 
     /**
@@ -54,8 +60,13 @@ class InvestmentComplete extends Notification
      */
     public function toArray($notifiable)
     {
-        return [
-            //
+        $title = 'Investment Complete';
+        $subtitle = "$this->total_profit has been added to your main balance";
+         return [
+         'name' => $this->data->name,
+         'amount' => $this->total_profit,
+         'title'=>$title,
+         'subtitle'=>$subtitle
         ];
     }
 }

@@ -1,11 +1,10 @@
 <template>
-  <v-app>
-    <v-main>
+  <guest-layout v-bind={hideAppBar:true,hideBottomNav:true}>
       <v-container fluid>
-        <v-row align="center" justify="center" style="height: 100vh">
+         <v-row align="center" justify="center" >
           <v-col cols="12" sm="12" md="10" lg="4">
-            <v-card>
-              <v-card-title class="d-flex align-center justify-center">
+
+              <v-card-title class="my-5 d-flex align-center justify-center">
                 <Link :href="route('/')">
                   <application-logo style="height: 75" />
                 </Link>
@@ -24,24 +23,29 @@
                     label="Email"
                     type="email"
                     outlined
+                    rounded
+                    dark
                     dense
                     :error-messages="form.errors.email"
                   />
-                  <v-btn :loading="form.processing" type="submit" block color="primary" class="mt-3"
+                  <v-btn type="submit" rounded block :color="color.accent" class="mt-3"
                     >Request New Password</v-btn
                   >
                 </v-form>
               </v-card-text>
-            </v-card>
+         
           </v-col>
         </v-row>
       </v-container>
-    </v-main>
-  </v-app>
+  </guest-layout>
 </template>
 
 <script>
 import ApplicationLogo from "../../components/ApplicationLogo.vue";
+import GuestLayout from '../../layouts/GuestLayout.vue';
+import {colors} from '../../components/config/config.js'
+
+
 export default {
   props: {
     status: String,
@@ -49,6 +53,7 @@ export default {
   components: { ApplicationLogo },
   data() {
     return {
+     color:colors,
       showPassword: false,
       isLoading: false,
       form: this.$inertia.form({

@@ -134,14 +134,14 @@ class Invest extends Controller
             $user->depositFloat($sum);
             $inv->status = 0;
             $inv->save();
-            Notification::send($user, new InvestmentComplete($Inv));
+            Notification::send($user, new InvestmentComplete($Inv,$sum));
           } else{
          //calculate percent
          $percent = $inv->amount/100*env('INTEREST_PERCENT');
          $profit->depositFloat($percent);
          $inv->interest += $percent;
          $inv->save();
-         Notification::send($user, new InvestmentUpdate($Inv));
+         Notification::send($user, new InvestmentUpdate($Inv,$percent));
           }
         }
     }
