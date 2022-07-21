@@ -72,15 +72,15 @@ class Transactions extends Controller
         ];
         $coin2 = $coin->create_invoice($data);
         $coin2 = json_decode(json_encode($coin2)); 
-        if(isset($coin2->data->url)){
+        
+        /*if(isset($coin2->data->url)){
           Notification::send($user, new Deposit($Trans));
-        }
-        //$coin2 = $coin2->data; 
-       //this echo command helps me see the redirecting output on local server if not, it shows a blank page
-         //echo("new redirect");
-        //dd($coin2);
-         return redirect()->away($coin2->data->url);
-        //return redirect()->away($coin2->url);
+        }*/
+        
+         //inertia redirect works in both local and prod server thats why am using it
+        return Inertia::location($coin2->data->url);
+         //return redirect()->away($coin2->data->url);
+        
     }
     
     public function DepositCallback(Request $request)
@@ -122,10 +122,10 @@ class Transactions extends Controller
              $user->depositFloat($data->amount);
              $user->save();
              //send mail here
-             Notification::send($user, new DepositComplete($Trans));
+             Notification::send($user, new DepositComplete($data));
              //send admin mail
              $admin = User::whereIs_admin(true)->get();
-             Notification::send($admin,new DepositAdmin($Trans));
+             Notification::send($admin,new DepositAdmin($data));
           }
         }
     }
