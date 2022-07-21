@@ -17,20 +17,20 @@
           class="mx-4"
         ></v-text-field>
       </template>
+      
+ <template v-slot:item.balance="{ item }">
+      <div>
+         ${{ item.balance/100 }}
+      </div>
+    </template>
 
- <template v-slot:item.status="{ item }">
-      <v-chip
-        dark
-        :color="item.status==0?'warning':'green'"
-      >
-       <v-icon left>
-  {{ item.status == 0?'mdi-clock-outline':'mdi-check-decagram' }}
-      </v-icon>
-        {{ item.status == 0?'pending':'completed' }}
-      </v-chip>
+ <template v-slot:item.created_at="{ item }">
+      <div>
+         {{new Date(item.created_at).toLocaleDateString()}}
+      </div>
     </template>
     
- <template v-slot:item.created_at="{ item }">
+ <template v-slot:item.updated_at="{ item }">
  
  <!-- Menu -->
 
@@ -54,31 +54,19 @@
       </template>
 
       <v-list>
-        <v-list-item v-show="item.type == 'deposit' && item.status==0">
-         <Link as="button" :href="route('transaction.confirm',{id:item.id})" >
+        <v-list-item>
+         <a class="text-decoration-none" :href="'mailto:'+item.email">
           <v-list-item-title>
-            Confirm Deposit
+            Send Email
           </v-list-item-title>
-          </Link>
+          </a>
         </v-list-item>
-        <v-list-item v-show="item.type == 'withdrawal'">
-         <Link as="button" :href="route('transaction.confirm',{id:item.id})" >
+        <v-list-item>
+         <Link as="button" href="#" >
           <v-list-item-title>
-            Confirm Withdraw
-          </v-list-item-title>
-          </Link>
-        </v-list-item>
-        <v-list-item v-show="item.type == 'withdrawal'">
-         <Link as="button" :href="route('withdrawal.reject',{id:item.id})" >
-          <v-list-item-title>
-            Reject Withdraw
-          </v-list-item-title>
-          </Link>
-        </v-list-item>
-        <v-list-item :href="route('transaction.delete',{id:item.id})">
-          <v-list-item-title>
-           Delete transaction
+           Delete User
          </v-list-item-title>
+         </Link>
         </v-list-item>
       </v-list>
     </v-menu>
@@ -97,7 +85,9 @@ import {colors} from '../../components/config/config.js';
 
 export default {
  props:['data','headers'],
- 
+ computed:{
+    
+ },
  data(){
     return{
      search:"",
@@ -106,7 +96,11 @@ export default {
      flash:this.$page.props.flash,
     }
  },
-  
+ method:{
+  theFormat(number) {
+            return number.toFixed(2);
+        },
+ }
  
 }
 </script>

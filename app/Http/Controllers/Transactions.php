@@ -204,7 +204,7 @@ class Transactions extends Controller
         $user->save();
         $trans->save();
         //send deposit email here
-        Notification::send($user,new DepositComplete($Trans));
+        Notification::send($user,new DepositComplete($trans));
         return back()->with('success','Deposit confirmed!');
        }
        //if withdrawal
@@ -212,7 +212,7 @@ class Transactions extends Controller
         $trans->status = 1;
         $trans->save();
         //send email here
-        Notification::send($user,new WithdrawalComplete($Trans));
+        Notification::send($user,new WithdrawalComplete($trans));
         return back()->with('success','Withdrawal confirmed!');
        }
     }
@@ -224,7 +224,7 @@ class Transactions extends Controller
        $user->depositFloat($trans->amount);
        $trans->delete();
        //send mail
-       Notification::send($user,new WithdrawalReject($Trans));
+       Notification::send($user,new WithdrawalReject($trans));
        return back()->with('success','Withdrawal rejected');
     }
     

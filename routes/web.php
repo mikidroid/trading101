@@ -22,8 +22,6 @@ use App\Http\Controllers\Admin\Dashboard;
 |
 */
 
-
-
 //Guest
 Route::group([],function (){
   Route::get('/', function () {
@@ -54,21 +52,29 @@ Route::group(['middleware'=>['auth','userAuth']],function (){
 
 //Admin
 Route::group(['middleware'=>['auth','adminAuth'],'prefix'=>'admin'],function (){
- 
-Route::get('/', [Dashboard::class, 'index'])->name('dashboard');
-Route::get('deposits',[Dashboard::class,'DepositsAdmin'])->name('deposits.admin');
+Route::get('/', [Dashboard::class, 'index'])->name('dashboard.admin');
+
+//basic pages
+Route::get('users',[Dashboard::class,'users'])->name('users.admin');
+Route::get('deposits',[Dashboard::class,'deposits'])->name('deposits.admin');
+Route::get('withdrawals',[Dashboard::class,'withdrawals'])->name('withdrawals.admin');
+Route::get('investments',[Dashboard::class,'investments'])->name('investments.admin');
+//end basic pages ********
+//setting pages
+
+//end settings pages *********
+//functions requests
 Route::get('transaction/confirm/{id}',[Transactions::class,'TransactionConfirm'])->name('transaction.confirm');
 Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
 Route::get('withdrawal/reject/{id}',[Transactions::class,'WithdrawalRejected'])->name('withdrawal.reject');
 });
+//end functions requests ********
+//end admin ********
 
 // crons
 Route::get('invest-cron',[Invest::class,'InvestCron'])->name('invest.cron');
 Route::get('lottery-cron',[MyLottery::class,'LotteryCron'])->name('lottery.cron');
+//End cron **********
 
-
-
-
-
-
+//auth route load
 require __DIR__.'/auth.php';

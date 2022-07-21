@@ -1,5 +1,5 @@
 <template>
-  <admin-layout v-bind="{title:'Transaction'}">
+  <admin-layout v-bind="{title:'All Deposits'}">
  
  <transAdmin :data="data" :headers="headers"/>
  

@@ -9,16 +9,14 @@
       elevate-on-scroll
     >
   <v-app-bar-nav-icon large >
-      <v-btn v-show="!title" @click="drawer = true" icon :color="color.accent">
+      <v-btn @click="drawer = true" icon :color="color.accent">
         <v-icon>mdi-currency-eth</v-icon>
       </v-btn>
-     <v-btn v-show="title" class="mb-1 ml-2 text-h3" icon :color="color.accent">
-       <Link as="button" :href="route('/')"> <v-icon>mdi-chevron-left</v-icon></Link>
-      </v-btn>
+
   </v-app-bar-nav-icon>
 
     <v-toolbar-title>
-    <application-logo v-show="!title"/>
+    <application-logo v-if="title == false || title == null"/>
     <div class="text-h5" v-show="title">{{title}}</div></v-toolbar-title>
 
     <v-spacer></v-spacer>
