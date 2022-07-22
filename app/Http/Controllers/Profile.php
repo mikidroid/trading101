@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Inertia\Inertia;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 class Profile extends Controller
@@ -58,8 +59,8 @@ class Profile extends Controller
      */
     public function edit($id)
     {
-        //
-        return Inertia::render('user/edit-profile');
+        $profile = User::find($id);
+        return Inertia::render('user/edit-profile',['data'=>$profile]);
     }
 
     /**
@@ -71,7 +72,17 @@ class Profile extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $cred = $request->validate([
+            'name'=>'required',
+            'email'=>'required|unique:users',
+            'gender'=>'string',
+            'phone'=>'required|string',
+            'country'=>'string'
+         ]);
+        $user = User::find($id)->update($request->all());
+        if($user){
+           return redirect('/profile')->with('success','You updated your account!');
+        }
     }
 
     /**

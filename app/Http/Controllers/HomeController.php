@@ -22,4 +22,14 @@ class HomeController extends Controller
           return redirect('/home')->with('error','Unable to verify!');
         }   */
     }   
+    
+    public function UserProfileUpdate()
+    {
+        return Inertia::render('home/home');
+    }
+    
+    public function UserProfile()
+    {
+        return Inertia::render('user/profile');
+    }
 }

@@ -80,7 +80,7 @@
 </v-card-text>
 
 <v-card-actions v-if="user" class="mb-3">
- <v-btn :disabled="data.claimed" :href="route('lottery.claim',{id:data.id})" v-show="data.user_id == user.id" block :color="color.accent">
+ <v-btn v-if="data" :disabled="data.claimed" :href="route('lottery.claim',{id:data.id})" v-show="data.user_id == user.id" block :color="color.accent">
   Claim
  </v-btn>
 </v-card-actions>

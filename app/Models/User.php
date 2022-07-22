@@ -32,6 +32,7 @@ class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, Walle
         'password',
         'phone',
         'is_admin',
+        'dob',
         'country',
         'gender',
         'profile_status'
