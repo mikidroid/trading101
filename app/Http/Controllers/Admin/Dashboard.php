@@ -71,4 +71,22 @@ class Dashboard extends Controller
       $investments = Investment::all();
       return Inertia::render('admin/investments',['data'=>$investments]);
     }
+    
+    //credit user
+    public function CreditUser(Request $request, $id){
+      $user = User::find($id);
+      $user->depositFloat($request->amount);
+      $user->save();
+      // send user mail
+      return redirect('admin')->with('success','User Credited successfully!');
+    }
+    
+    //delete user
+    public function DeleteUser($id){
+      $user = User::find($id);
+      if(!$user->is_admin){
+        $user->delete();
+        return redirect('admin/users')->with('success','User Deleted successfully!');}
+      return redirect('admin/users')->with('error','You Cant Delete Admin!');
+    }
 }

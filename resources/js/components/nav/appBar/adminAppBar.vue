@@ -56,7 +56,7 @@
             Super4trade
           </v-list-item-title>
           <v-list-item-subtitle class="py-3" >
-            Admin Panel
+            Super Admin Panel
           </v-list-item-subtitle>
           
         </v-list-item-content>
@@ -85,8 +85,8 @@
             </v-list-item-icon>
              <v-list-item-title >           
              <Link as="button" 
-             :href="route('trade.index')">
-             Trade
+             href="/admin/users">
+              All Users
             </Link>
             </v-list-item-title>
          </Link>
@@ -98,8 +98,30 @@
             </v-list-item-icon>
             <v-list-item-title>             
             <Link as="button" 
-             :href="route('lottery.index')">
-             Lottery
+             href="/admin/deposits">
+             All Deposits
+            </Link></v-list-item-title>
+          </v-list-item>
+          
+        <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-cash</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>             
+            <Link as="button" 
+             href="/admin/withdrawals">
+             All Withdrawals
+            </Link></v-list-item-title>
+          </v-list-item>
+          
+        <v-list-item>
+            <v-list-item-icon>
+              <v-icon>mdi-cash</v-icon>
+            </v-list-item-icon>
+            <v-list-item-title>             
+            <Link as="button" 
+             href="/admin/investments">
+             All Investments
             </Link></v-list-item-title>
           </v-list-item>
           
@@ -113,84 +135,43 @@
         >
           <template v-slot:activator>
             <v-list-item-content>
-              <v-list-item-title>Invest</v-list-item-title>
+              <v-list-item-title>Settings</v-list-item-title>
             </v-list-item-content>
           </template>
 
-          <v-list-item
-            link
-          >
-         <Link as="button" :href="route('investment.create')">
-           <v-list-item-title >New Invest</v-list-item-title>
-         </Link>
-
-            <v-list-item-icon>
-              <v-icon>mdi-Deposits</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-         <v-list-item
-            link
-          >
-             <Link as="button" :href="route('investment.index')">
-           <v-list-item-title >Invest history</v-list-item-title>
-         </Link>
-
-            <v-list-item-icon>
-              <v-icon>mdi-Deposits</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-          
-        </v-list-group>
-          
-          
-        <v-list-group
-          :value="false"
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Mine</v-list-item-title>
-            </v-list-item-content>
-          </template>
-          
-          <v-list-item
-            link
-           >
-          <Link as="button" :href="route('deposit')">
-            <v-list-item-title >New Deposit</v-list-item-title>
-         </Link>
-            <v-list-item-icon>
-              <v-icon>mdi-Deposits</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-  
+         <v-list-item link >
+           <Link as="button" :href="route('investment.create')">
+           <v-list-item-title >System settings</v-list-item-title>
+           </Link>
+           <v-list-item-icon>
+           <v-icon>mdi-Deposits</v-icon>
+           </v-list-item-icon>
+         </v-list-item>
           
          <v-list-item
             link
           >
-          <Link as="button" :href="route('withdrawal')">
-            <v-list-item-title >Withdrawal</v-list-item-title>
+          <Link as="button" :href="route('investment.index')">
+           <v-list-item-title >Website Settings</v-list-item-title>
          </Link>
 
-            <v-list-item-icon>
-              <v-icon>mdi-Deposits</v-icon>
-            </v-list-item-icon>
+         <v-list-item-icon>
+         <v-icon>mdi-Deposits</v-icon>
+         </v-list-item-icon>
           </v-list-item>
           
-        <v-list-item
-            link
-          >
-           <Link as="button" :href="route('transactions.index')">
-            <v-list-item-title >All transactions</v-list-item-title>
-         </Link>
-
-            <v-list-item-icon>
-              <v-icon>mdi-Deposits</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
           
+         <v-list-item link >
+           <Link as="button" :href="route('investment.create')">
+           <v-list-item-title >Admin Details</v-list-item-title>
+           </Link>
+           <v-list-item-icon>
+           <v-icon>mdi-Deposits</v-icon>
+           </v-list-item-icon>
+         </v-list-item>
+         
         </v-list-group>
+          
        
         
       </v-list>

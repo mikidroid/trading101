@@ -32,48 +32,13 @@
     
  <template v-slot:item.updated_at="{ item }">
  
- <!-- Menu -->
+ <!-- Dialog -->
 
-<template>
-  <div class="text-center">
-    <v-menu
-      open-on-hover
-      top
-      offset-y
-    >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          icon
-          :color="color.primary"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-        <v-icon>mdi-cog-outline</v-icon>
-        </v-btn>
-      </template>
+  <UserActionsDialog :item="item"/>
 
-      <v-list>
-        <v-list-item>
-         <a class="text-decoration-none" :href="'mailto:'+item.email">
-          <v-list-item-title>
-            Send Email
-          </v-list-item-title>
-          </a>
-        </v-list-item>
-        <v-list-item>
-         <Link as="button" href="#" >
-          <v-list-item-title>
-           Delete User
-         </v-list-item-title>
-         </Link>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </div>
 </template>
  
-  </template>
+
     
 </v-data-table>
    </v-container>
@@ -82,24 +47,33 @@
 
 <script>
 import {colors} from '../../components/config/config.js';
-
+import UserActionsDialog from './user-actions-dialogs.vue'
 export default {
  props:['data','headers'],
+ components:{UserActionsDialog},
  computed:{
     
  },
  data(){
     return{
+     dialog:false,
+     dialog1:false,
      search:"",
      menu:false,
      color:colors,
      flash:this.$page.props.flash,
+     form:this.$inertia.form({
+        amount:null
+     })
     }
  },
  method:{
-  theFormat(number) {
-            return number.toFixed(2);
-        },
+   theFormat(number) {
+      return number.toFixed(2);
+   },
+   submit(id){
+     this.form.post('/credit-user/'+id)
+  }
  }
  
 }

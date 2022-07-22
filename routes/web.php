@@ -67,8 +67,12 @@ Route::get('investments',[Dashboard::class,'investments'])->name('investments.ad
 Route::get('transaction/confirm/{id}',[Transactions::class,'TransactionConfirm'])->name('transaction.confirm');
 Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
 Route::get('withdrawal/reject/{id}',[Transactions::class,'WithdrawalRejected'])->name('withdrawal.reject');
-});
+Route::post('credit-user/{id}',[Dashboard::class,'CreditUser'])->name('admin.credit');
+Route::get('delete-user/{id}',[Dashboard::class,'DeleteUser'])->name('user.delete');
+
 //end functions requests ********
+});
+
 //end admin ********
 
 // crons
