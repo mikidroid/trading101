@@ -14,7 +14,7 @@
  </v-col>
  
   <v-col cols="12" sm="12" md="6">
-        <a class="text-decoration-none" href="" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
+        <a class="text-decoration-none" href="/admin/investments" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
            <v-card-title class="py-1 ml-3 display-1" :style="{color:color.p_text}">
              💼 {{data.investments}} 
            </v-card-title>

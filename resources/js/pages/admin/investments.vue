@@ -1,18 +1,18 @@
 <template>
-  <admin-layout>
+  <admin-layout v-bind="{title:'All Investments'}">
  
- <UserTable :data="data" :headers="headers"/>
+ <InvestTable :data="data" :headers="headers"/>
  
   </admin-layout>
 </template>
 
 <script>
 import {colors} from '../../components/config/config.js';
-import UserTable from '../inc/usertable.vue';
+import InvestTable from '../inc/invest-admin.vue';
 
 export default {
  props:['data'],
- components:{UserTable},
+ components:{InvestTable},
  data(){
     return{
      search:"",
@@ -33,21 +33,34 @@ export default {
          sortable:false
         },
         {
-         text:'phone',
-         value:'phone',
+         text:'amount',
+         value:'amount',
          sortable:true
         },
         {
-         text:'balance',
-         value:'balance'
+         text:'current profit',
+         value:'interest'
         },
         {
-         text:'registered',
-         value:'created_at'
+         text:'duration',
+         value:'duration'
         },
         {
-         text:'action',
-         value:'updated_at'
+         text:'start date',
+         value:'start_date'
+        },
+        {
+         text:'end date',
+         value:'end_date'
+        },
+        {
+         text:'ref code',
+         value:'ref',
+         sortable:true
+        },
+        {
+         text:'status',
+         value:'status'
         },
        ]
     }

@@ -17,6 +17,13 @@
           class="mx-4"
         ></v-text-field>
    </template>
+   
+    <template v-slot:item.created_at="{ item }">
+      <v-text
+      >
+  {{ new Date(item.created_at).toLocaleDateString()}}
+      </v-text>
+    </template>
 
    <template v-slot:item.status="{ item }">
       <v-chip
@@ -28,6 +35,12 @@
       </v-icon>
       {{ item.status == 0?'pending':'completed' }}
       </v-chip>
+   </template>
+   
+    <template v-slot:item.coin_address="{ item }">
+     
+    <span > {{item.type=='withdrawal'?item.coin_address:'Not required'}} </span>
+    
    </template>
    
    <template v-slot:item.amount="{ item }">

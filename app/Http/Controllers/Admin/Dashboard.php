@@ -69,6 +69,6 @@ class Dashboard extends Controller
     //investment page
     public function investments(){
       $investments = Investment::all();
-      return Inertia::render('admin/investments',['investments'=>$investments]);
+      return Inertia::render('admin/investments',['data'=>$investments]);
     }
 }
