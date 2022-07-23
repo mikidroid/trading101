@@ -1,7 +1,16 @@
 <template>
   <guest-layout >
    <!-- import banner include -->
-   <banner/>
+   
+   <banner 
+           :linkText="'update'" 
+           :show="!user.profile_status?true:false"
+           :icon="'mdi-lock'"
+           :link="'/profile'"
+           :title="'Account update'"
+           :subtitle="'Welcome, you are encouraged to update your account when you can!'"
+        />
+ 
     <!-- import balance include -->
    <balance/>  
     <!-- import features include -->

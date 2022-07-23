@@ -20,7 +20,7 @@ export default {
   
  computed: {
     user(){
-     return this.props.auth.user
+     return this.$page.props.auth.user
     }
  },
 }

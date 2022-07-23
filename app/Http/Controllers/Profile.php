@@ -5,6 +5,7 @@ use Inertia\Inertia;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Auth;
 class Profile extends Controller
 {
     /**
@@ -81,7 +82,10 @@ class Profile extends Controller
          ]);
         $user = User::find($id)->update($request->all());
         if($user){
-           return redirect('/profile')->with('success','You updated your account!');
+            $user = Auth::user();
+            $user->profile_status = 1;
+            $user->save();
+            return redirect('/profile')->with('success','You updated your account!');
         }
     }
 

@@ -1,32 +1,30 @@
 <template>
  
-  <v-banner class="my-5" :style="{borderRadius:'15px'}" dark :color="color.primary" two-line>
+  <v-banner v-if="show" class="my-5" :style="{borderRadius:'15px'}" dark :color="color.primary" two-line>
     <v-avatar
       slot="icon"
       :color="color.accent"
-      
       size="40"
     >
       <v-icon
-        icon="mdi-lock"
         light
         color="black"
       >
-        mdi-lock
+      {{icon}}
       </v-icon>
     </v-avatar>
     <div class="title font-weight-bold">
-     Account Notice
+     {{title}}
      </div>
-    This is to inform you to update your account to lift limitations
-
+    {{subtitle}}
     <template v-slot:actions>
 
       <v-btn
         text
         :color="color.accent"
+        :href="link"
       >
-        Update
+        {{linkText}}
       </v-btn>
     </template>
   </v-banner>
@@ -37,6 +35,7 @@
 import {colors} from '../../components/config/config.js';
 
 export default {
+ props:['title','subtitle','linkText','link','icon','show'],
  methods:{
   
    
@@ -47,8 +46,10 @@ export default {
     }
  },
   
- computed: {
-    
+ computed:{
+    user(){
+     return this.$page.props.auth.user
+    }
  },
 }
 </script>
