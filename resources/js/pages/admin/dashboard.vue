@@ -77,7 +77,7 @@
 
 
 <v-row no-gutters> 
- <v-col cols="12" xs="12" md="12">
+ <v-col v-if="data.lottery" cols="12" xs="12" md="12">
         <a class="text-decoration-none" href="/lottery" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
          <v-list two-line><v-list-item>
           <v-list-item-content>

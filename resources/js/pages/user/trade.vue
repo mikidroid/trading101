@@ -1,44 +1,30 @@
 <template>
   <guest-layout v-bind="{title:'Trade'}">
    <v-container>
-              <v-form @submit.prevent="">
-           <v-select
-          v-model="coin"
-          :items="coins"
-          menu-props="auto"
-          dark
-          label="Select Coin"
-          hide-details
-          class="my-5 mt-4 pa-3"
-          :error-messages="form.errors.email"
-          prepend-icon="mdi-map"
-          single-line
-        ></v-select>
-                   
-                 
-                  <v-text-field
-                    v-model="form.password"
-                    prepend-inner-icon="mdi-currency-usd"
-                    label="Amount(USD)"
-                    rounded
-                    dark
-                    outlined
-                    type="number"
-                    :error-messages="form.errors.password"
-   
-                  />
+    <div v-if="da">
+     <v-card-text>{{da}}</v-card-text>
+    </div>
+     <div v-show="loading">loading data...</div>
      
-                  </div>
-                  <v-btn light rounded :loading="form.processing" type="submit" block :color="color.accent" class="mt-3"
-                    >Deposit</v-btn
-                  >
-                </v-form>
+     <!-- TradingView Widget BEGin
+<div class="tradingview-widget-container">
+  <div id="tradingview_01bfe"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/BTCUSDT/?exchange=BINANCE" rel="noopener" target="_blank"><span class="blue-text">BTCUSDT Chart</span></a> by TradingView</div>
+
+<script type="application/javascript" defer src="https://s3.tradingview.com/tv.js"></script>
+-->
+
+ 
+</div>
+<!-- TradingView Widget END -->
+     
    </v-container>
   </guest-layout>
 </template>
 
 <script>
 import {colors} from '../../components/config/config.js';
+//import "https://s3.tradingview.com/tv.js"
 
 export default {
  methods:{
@@ -47,6 +33,9 @@ export default {
  },
  data(){
     return{
+     ws:null,
+     da:[],
+     loading:this.da,
      color:colors,
      showPassword: false,
       color:colors,
@@ -60,9 +49,42 @@ export default {
       })}
  },
   
+ created(){
+  
+  /*
+  new TradingView.widget(
+  {
+  "autosize": true,
+  "symbol": "BINANCE:BTCUSDT",
+  "interval": "1",
+  "timezone": "Etc/UTC",
+  "theme": "light",
+  "style": "1",
+  "locale": "en",
+  "toolbar_bg": "#f1f3f6",
+  "enable_publishing": false,
+  "allow_symbol_change": true,
+  "container_id": "tradingview_01bfe"
+})
+  
+  */
+        this.ws = new WebSocket('wss://stream.binance.com:9443/stream?streams=btcusdt@kline_1m');
+       this.ws.onmessage=(e)=>{
+         let da = JSON.parse(e.data)
+      //   this.da.push(da); 
+         this.da = da; 
+        }
+  },
  computed: {
     user(){
      return this.props.auth.user
+    },
+    
+    price(){
+       var p = 8;
+
+
+       
     }
  },
 }

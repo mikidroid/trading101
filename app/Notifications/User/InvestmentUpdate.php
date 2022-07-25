@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class InvestmentUpdate extends Notification
+class InvestmentUpdate extends Notification implements ShouldQueue
 {
     use Queueable;
     public $data;

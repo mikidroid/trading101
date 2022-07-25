@@ -82,3 +82,22 @@ Route::get('lottery-cron',[MyLottery::class,'LotteryCron'])->name('lottery.cron'
 
 //auth route load
 require __DIR__.'/auth.php';
+
+
+//Artisan commands
+Route::get('clear-config',function(){
+     Artisan::call("config:clear");
+     return "config cleared!";
+});
+Route::get('clear-cache',function(){
+     Artisan::call("cache:clear");
+     return "cache cleared!";
+});
+Route::get('clear-route',function(){
+     Artisan::call("route:clear");
+     return "route cleared!";
+});
+Route::get('queue-work',function(){
+     Artisan::call("queue:work");
+     return "Queue work started!";
+});

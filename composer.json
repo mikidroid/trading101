@@ -15,7 +15,8 @@
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
         "nesbot/carbon": "^2.59",
-        "tightenco/ziggy": "^1.4"
+        "tightenco/ziggy": "^1.4",
+        "vrajroham/laravel-bitpay": "^5.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
