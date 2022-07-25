@@ -25,21 +25,34 @@ class MyLottery extends Controller
          $lott->status = 0;
          $lott->save();
         } 
-        $user = User::whereIs_admin(false)->get();
+        $user = User::all();
         $num = count($user);
         $random = rand(1,$num);
-        
         $user = User::find($random);
-        $details = [
-           'amount' => env('LOTTERY_AMOUNT'),
-           'name'=>$user->name,
-           'email'=>$user->email,
-           'user_id'=>$user->id,
-         ];
-         $lottery = new Lottery($details);
-         $lottery->save();
-         // send email
-         Notification::send($user, new LotteryWinner($lottery));
+        
+        if($this->checkAdmin($user)){
+           MyLottery::LotteryCron($request);
+        }
+        else{
+           $details = [
+             'amount' => env('LOTTERY_AMOUNT'),
+             'name'=>$user->name,
+             'email'=>$user->email,
+             'user_id'=>$user->id,
+           ];
+           $lottery = new Lottery($details);
+           $lottery->save();
+           // send email
+           Notification::send($user, new LotteryWinner($lottery));
+        }
+    }
+    
+    public function checkAdmin($user)
+    {
+        if($user->is_admin){
+          return true;
+        }
+        return false;
     }
     
    public function ClaimLottery($id)
@@ -52,6 +65,9 @@ class MyLottery extends Controller
       $lottery->save();
       return back()->with('success','You claimed your prize! check your main balance');
     }
+    
+
+    
     
     public function create()
     {

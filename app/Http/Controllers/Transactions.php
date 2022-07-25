@@ -15,6 +15,7 @@ use App\Notifications\User\WithdrawalComplete;
 use App\Notifications\User\WithdrawalReject;
 use App\Notifications\Admin\WithdrawalAdmin;
 use Notification;
+use Shakurov\Coinbase;
 
 class Transactions extends Controller
 {
@@ -36,7 +37,9 @@ class Transactions extends Controller
         return Inertia::render('user/deposit');
     }
     
-    public function DepositStore(Request $request)
+    
+    //Coinremitter pay
+    public function DepositStore_CoinRemitter(Request $request)
     {
         $user = $request->user();
         $request->validate([
@@ -139,6 +142,61 @@ class Transactions extends Controller
     {
         return redirect('/home')->with('error','Deposit failed! Try again!');
     }
+     /*
+     *
+     *
+     *
+     *
+     *
+     */
+    //Coinbase payment
+    public function DepositStore_Coinbase(Request $request)
+    {
+        $user = $request->user();
+        $request->validate([
+            'amount' => 'min:'.env('DEPOSIT_MIN').'|max:'.env('DEPOSIT_MAX').'|required|integer',
+            'coin' => 'string|required'
+          ]);
+        $random = Str::random(5).substr(time(), 6,8).Str::random(5);
+        $details = [
+          'user_id'=>$user->id,
+          'type'=>'deposit',
+          'coin'=>$request->coin,
+          'amount'=>$request->amount,
+          'ref'=> $random,
+          'name'=>$user->name,
+          'email'=>$user->email,
+         ];
+         
+        $cancel_url=env('SITE_URL')."/deposit/fail";
+        $redirect_url=env('SITE_URL')."/deposit/success";
+
+        $charge = Coinbase::createCharge([
+          'name' => 'New Deposit',
+          'description' => 'Deposit into your account securely.',
+          'local_price' => [
+             'amount' => $request->amount,
+             'currency' => 'USD',
+           ],
+          'pricing_type' => 'fixed_price',
+          'metadata'=>$details,
+          'redirect_url'=>$redirect_url,
+          'cancel_url'=>$cancel_url
+        ]);
+
+        $chargeRes = json_decode(json_encode($charge)); 
+        
+        /*if(isset($coin2->data->url)){
+          Notification::send($user, new Deposit($Trans));
+        }*/
+        
+         //inertia redirect works in both local and prod server thats why am using it
+        return Inertia::location($chargeRes->data->hosted_url);
+         //return redirect()->away($coin2->data->url);
+        
+    }
+
+
 
     public function withdrawal(Request $request)
     {

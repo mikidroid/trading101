@@ -41,7 +41,7 @@ Route::group(['middleware'=>['auth','userAuth']],function (){
   Route::resource('profile',Profile::class);
   Route::resource('transactions',Transactions::class);
   Route::get('deposit',[Transactions::class,'deposit'])->name('deposit');
-  Route::post('deposit/store',[Transactions::class,'DepositStore'])->name('deposit.store');
+  Route::post('deposit/store',[Transactions::class,'DepositStore_Coinbase'])->name('deposit.store');
   Route::get('deposit/fail',[Transactions::class,'fail_url'])->name('deposit.fail');
   Route::get('deposit/success',[Transactions::class,'success_url'])->name('deposit.success');
   Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('transaction.delete');
@@ -100,4 +100,8 @@ Route::get('clear-route',function(){
 Route::get('queue-work',function(){
      Artisan::call("queue:work");
      return "Queue work started!";
+});
+Route::get('migrate-fresh',function(){
+     Artisan::call("migrate:fresh");
+     return "Database refreshed!";
 });

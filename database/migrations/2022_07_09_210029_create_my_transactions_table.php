@@ -25,6 +25,7 @@ class CreateMyTransactionsTable extends Migration
             $table->string('coin');
             $table->float('coin_value')->nullable(true);
             $table->string('coin_address')->nullable(true);
+            $table->string('code')->nullable(true);
             $table->boolean('status')->default(0);
         });
     }
