@@ -6,7 +6,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Shakurov\Coinbase\Models\CoinbaseWebhookCall;
 use App\Models\MyTransaction;
-use Shakurov\Coinbase;
+use App\Models\User;
+use Coinbase;
 use Notification;
 use App\Notifications\User\DepositComplete;
 

@@ -15,7 +15,7 @@ use App\Notifications\User\WithdrawalComplete;
 use App\Notifications\User\WithdrawalReject;
 use App\Notifications\Admin\WithdrawalAdmin;
 use Notification;
-use Shakurov\Coinbase;
+use Coinbase;
 
 class Transactions extends Controller
 {

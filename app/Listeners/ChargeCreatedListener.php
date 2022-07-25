@@ -6,7 +6,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Shakurov\Coinbase\Models\CoinbaseWebhookCall;
 use App\Models\MyTransaction;
-use Shakurov\Coinbase;
+use App\Models\User;
+use Coinbase;
 use Notification;
 use App\Notifications\User\Deposit;
 
@@ -45,6 +46,7 @@ class ChargeCreatedListener implements ShouldQueue
           'code'=>$c->id
           ];
       $Trans = new MyTransaction($details);
+      $Trans->save();
       $user = User::find($Trans->user_id);
       if(isset($user)){
           Notification::send($user, new Deposit($Trans));
