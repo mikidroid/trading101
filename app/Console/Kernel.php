@@ -30,12 +30,13 @@ class Kernel extends ConsoleKernel
          $schedule->command('InvestCron')->dailyAt('12:00'); 
          $schedule->command('QueueRestart')->dailyAt('24:00');
          $schedule->command('QueueRetry')->everyHour();
+         $schedule->command('queue:work')->everyFiveMinutes()->withoutOverlapping();
          */
         
          //development testing
-         $schedule->command('LotteryCron')->everyMinute();
-         $schedule->command('InvestCron')->everyMinute();
-         
+         $schedule->command('LotteryCron')->daily()->at('13:00');
+         $schedule->command('InvestCron')->everyFiveHours();
+         $schedule->command('queue:work')->everyFiveMinutes()->withoutOverlapping();
     }
 
     /**

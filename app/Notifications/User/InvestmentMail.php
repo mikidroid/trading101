@@ -43,7 +43,7 @@ class InvestmentMail extends Notification implements ShouldQueue
        $d = $this->data;
         return (new MailMessage)
                     ->subject('New Investment')
-                    ->line("Way to go $d->name, you just invested $d->amount on our platform")
+                    ->line("Way to go $d->name, you just invested $$d->amount on our platform")
                     ->line("Expect full returns in $d->duration days time.")
                     ->line("Check investment status by clicking the button below")
                     ->action('Check', url('/investment'))

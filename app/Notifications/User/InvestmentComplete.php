@@ -45,7 +45,7 @@ class InvestmentComplete extends Notification implements ShouldQueue
       $d = $this->data;
        return (new MailMessage)
                     ->subject('Investment complete!')
-                    ->line("Congrats $d->name, your investment is complete and your total interest of $this->total_profit has been added to your main balance.")
+                    ->line("Congrats $d->name, your investment is complete and your total interest of $$this->total_profit has been added to your main balance.")
                     ->line("$d->interest was removed from your profit balance in this process.")
                     ->line("Check investment status by clicking the button below")
                     ->action('Check', url('/investment'))

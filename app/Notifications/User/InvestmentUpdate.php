@@ -45,7 +45,7 @@ class InvestmentUpdate extends Notification implements ShouldQueue
        $d = $this->data;
        return (new MailMessage)
                     ->subject('You made profit!')
-                    ->line("$d->name, you just made profit of $this->profit on your current investment plan")
+                    ->line("$d->name, you just made profit of $$this->profit on your current investment plan")
                     ->line("Expect full returns after your investment is conplete.")
                     ->line("Check investment status by clicking the button below")
                     ->action('Check', url('/investment'))
