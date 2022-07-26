@@ -31,9 +31,9 @@ class ChargeCreatedListener implements ShouldQueue
      */
     public function handle(CoinbaseWebhookCall $event)
     {
-      $e = $event->payload->event;
-      $c = Coinbase::getCharge($e->id);
-      $c = $c->data;
+      $e = json_decode(json_encode($event->payload));
+      //$c = Coinbase::getCharge($e->event->id);
+      $c = $e->event->data;
       //details 
       $details = [
           'user_id'=>$c->metadata->user_id,
@@ -42,8 +42,8 @@ class ChargeCreatedListener implements ShouldQueue
           'amount'=>$c->pricing->local->amount,
           'ref'=> $c->metadata->ref,
           'name'=>$c->metadata->name,
-          'email'=>$e->metadata->email,
-          'code'=>$c->id
+          'email'=>$c->metadata->email,
+          'code'=>$c->code
           ];
       $Trans = new MyTransaction($details);
       $Trans->save();

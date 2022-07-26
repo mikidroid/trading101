@@ -31,9 +31,9 @@ class ChargeConfirmedListener implements ShouldQueue
      */
     public function handle(CoinbaseWebhookCall $event)
     {
-      $e = $event->payload;
-      $c = Coinbase::getCharge($e->id);
-      $Trans = MyTransaction::whereCode($c->data->id)->first();
+      $e = json_decode(json_encode($event->payload));
+      $c = $e->event->data;
+      $Trans = MyTransaction::whereRef($c->metadata->ref)->first();
       if(isset($Trans)){
         $user = User::find($Trans->user_id);
         $Trans->status=1;
