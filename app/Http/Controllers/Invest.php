@@ -119,7 +119,7 @@ class Invest extends Controller
         
     }
     
-    public function InvestCron(Request $request)
+    public function InvestCron()
     {
         $invs = Investment::whereStatus(1)->get();
         $current_date = Carbon::now();

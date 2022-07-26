@@ -101,7 +101,12 @@ Route::get('queue-work',function(){
      Artisan::call("queue:work");
      return "Queue work started!";
 });
+Route::get('queue-restart',function(){
+     Artisan::call("queue:restart");
+     return "Queue work restarted!";
+});
+/*
 Route::get('migrate-fresh',function(){
      Artisan::call("migrate:fresh");
      return "Database refreshed!";
-});
+});*/

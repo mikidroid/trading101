@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Console;
-
+use App\Models\User;
+use App\Console\Commands\InvestCron;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +14,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+
     ];
 
     /**
@@ -24,7 +25,17 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         /* production
+         $schedule->command('LotteryCron')->weekly()->fridays()->at('6:00');
+         $schedule->command('InvestCron')->dailyAt('12:00'); 
+         $schedule->command('QueueRestart')->dailyAt('24:00');
+         $schedule->command('QueueRetry')->everyHour();
+         */
+        
+         //development testing
+         $schedule->command('LotteryCron')->everyMinute();
+         $schedule->command('InvestCron')->everyMinute();
+         
     }
 
     /**

@@ -18,7 +18,7 @@ class MyLottery extends Controller
         return Inertia::render('user/lottery',["data"=>$lottery?$lottery:false]);
     }
 
-    public function LotteryCron(Request $request)
+    public function LotteryCron()
     {
         if(Lottery::whereStatus(1)->first()){
          $lott = Lottery::whereStatus(1)->first();

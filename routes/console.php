@@ -2,7 +2,9 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-
+use App\Http\Controllers\Invest;
+use App\Http\Controllers\MyLottery;
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -17,3 +19,19 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Artisan::command('LotteryCron', function (){
+       $lottery = new MyLottery();
+       $lottery->LotteryCron();
+});
+
+Artisan::command('InvestCron', function (){
+     $invest= new Invest();
+     $invest->InvestCron();
+});
+Artisan::command('QueueRetry', function (){
+     Artisan::call("queue:retry all");
+});
+Artisan::command('QueueRestart', function (){
+     Artisan::call("queue:restart");
+});
