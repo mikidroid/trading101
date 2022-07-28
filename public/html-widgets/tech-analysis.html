@@ -1,0 +1,27 @@
+<!-- TradingView Widget BEGIN -->
+
+<div class="tradingview-widget-container">
+  <div class="tradingview-widget-container__widget"></div>
+ 
+  <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js" async>
+ 
+  {
+  "interval": "1m",
+  "width": 400,
+  "isTransparent": false,
+  "height": 400,
+  "symbol": "BINANCE:BTCUSDT",
+  "showIntervalTabs": true,
+  "locale": "en",
+  "colorTheme": "dark"
+}
+  
+  </script>
+  <script>
+   function change(){
+    alert('changed')
+    this.sm = "BINANCE:BTCUSDT"
+  }
+  </script>
+</div>
+<!-- TradingView Widget END -->
