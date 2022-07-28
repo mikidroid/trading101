@@ -11,7 +11,7 @@
     <v-container>
 
       <!-- All pages enter here into the slot -->
-      <div class="mt-15">
+      <div class="mt-5">
       <slot>
   
     

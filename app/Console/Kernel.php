@@ -34,8 +34,8 @@ class Kernel extends ConsoleKernel
          */
         
          //development testing
-         $schedule->command('LotteryCron')->daily()->at('13:00');
-         $schedule->command('InvestCron')->everyFiveHours();
+         $schedule->command('LotteryCron')->dailyAt('13:00');
+         $schedule->command('InvestCron')->everySixHours();
          $schedule->command('queue:work')->everyFiveMinutes()->withoutOverlapping();
     }
 

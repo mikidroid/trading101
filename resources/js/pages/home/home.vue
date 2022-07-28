@@ -1,7 +1,7 @@
 <template>
   <guest-layout >
    <!-- import banner include -->
-   
+  
    <banner 
            :linkText="'update'" 
            :show="!user.profile_status?true:false"
@@ -17,6 +17,7 @@
    <features/>  
    <!-- import asset include -->
    <assets/>  
+  
   </guest-layout>
 </template>
 

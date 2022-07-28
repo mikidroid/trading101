@@ -37,6 +37,7 @@
         "vue-number-animation": "^1.1.2",
         "vue-tel-input-vuetify": "^1.5.3",
         "vue-toastification": "^1.7.11",
+        "vue-tradingchart": "^1.0.1",
         "vuetify": "^2.5.8"
     }
 }

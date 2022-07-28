@@ -17,7 +17,7 @@ use Bavix\Wallet\Interfaces\WalletFloat;
 //using for multiple wallets
 use Bavix\Wallet\Traits\HasWallets;
 
-class User extends Authenticatable implements /*MustVerifyEmail,*/ Wallet, WalletFloat
+class User extends Authenticatable implements MustVerifyEmail, Wallet, WalletFloat
 {
     use HasApiTokens, HasFactory, Notifiable /*HasWallet*/,HasWalletFloat, HasWallets;
 

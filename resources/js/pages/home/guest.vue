@@ -1,5 +1,6 @@
 <template>
   <guest-layout >
+  
    <frontpageHeader/>
    <!-- import banner include -->
    <banner/>
@@ -7,6 +8,7 @@
    <features/>  
    <!-- import asset include -->
    <assets/>  
+  
   </guest-layout>
 </template>
 

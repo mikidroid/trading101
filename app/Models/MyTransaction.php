@@ -19,7 +19,8 @@ class MyTransaction extends Model
         'ref',
         'user_id',
         'type',
-        'status'
+        'status',
+        'code'
     ];
     
   public function user(){
