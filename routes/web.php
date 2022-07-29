@@ -88,14 +88,16 @@ Route::get('delete-user/{id}',[Dashboard::class,'DeleteUser'])->name('user.delet
 
 //admin settings control
 //POST
-Route::post('basic-settings/store',[SettingsController::class,'BasicSettingsStore']);
+//Route::post('basic-settings/store',[SettingsController::class,'BasicSettingsStore']);
 Route::post('core-settings/store',[SettingsController::class,'CoreSettingsStore']);
 Route::post('payment-settings/store',[SettingsController::class,'PaymentSettingsStore']);
+Route::post('mail-settings/store',[SettingsController::class,'MailSettingsStore']);
 Route::post('system-settings/store',[SettingsController::class,'SystemSettingsStore']);
 //GET
-Route::get('basic-settings',[SettingsController::class,'BasicSettings']);
+//Route::get('basic-settings',[SettingsController::class,'BasicSettings']);
 Route::get('core-settings',[SettingsController::class,'CoreSettings']);
 Route::get('payment-settings',[SettingsController::class,'PaymentSettings']);
+Route::get('mail-settings',[SettingsController::class,'MailSettings']);
 Route::get('system-settings',[SettingsController::class,'SystemSettings']);
 //end settings ********
 

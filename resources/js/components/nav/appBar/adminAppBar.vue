@@ -140,8 +140,8 @@
           </template>
 
          <v-list-item link >
-           <Link as="button" :href="route('investment.create')">
-           <v-list-item-title >System settings</v-list-item-title>
+           <Link as="button" href="/admin/core-settings">
+           <v-list-item-title >Core settings</v-list-item-title>
            </Link>
            <v-list-item-icon>
            <v-icon>mdi-Deposits</v-icon>
@@ -151,8 +151,8 @@
          <v-list-item
             link
           >
-          <Link as="button" :href="route('investment.index')">
-           <v-list-item-title >Website Settings</v-list-item-title>
+          <Link as="button" href="/admin/payment-settings">
+           <v-list-item-title >Payment Settings</v-list-item-title>
          </Link>
 
          <v-list-item-icon>
@@ -162,8 +162,8 @@
           
           
          <v-list-item link >
-           <Link as="button" :href="route('investment.create')">
-           <v-list-item-title >Admin Details</v-list-item-title>
+           <Link as="button" href="/admin/mail-settings">
+           <v-list-item-title >Mail Settings</v-list-item-title>
            </Link>
            <v-list-item-icon>
            <v-icon>mdi-Deposits</v-icon>
