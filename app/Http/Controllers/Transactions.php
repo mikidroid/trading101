@@ -168,8 +168,8 @@ class Transactions extends Controller
           'email'=>$user->email,
          ];
          
-        $cancel_url=env('SITE_URL')."/deposit/fail";
-        $redirect_url=env('SITE_URL')."/deposit/success";
+        $cancel_url=env('APP_URL')."/deposit/fail";
+        $redirect_url=env('APP_URL')."/deposit/success";
 
         $charge = Coinbase::createCharge([
           'name' => 'New Deposit',
