@@ -22,7 +22,7 @@ import frontpageHeader from '../inc/frontpage-header.vue';
 
 export default {
  components:{
-  assets,banner,balance,features,frontpageHeader
+  assets,banner,features,frontpageHeader
  },
  methods:{
   
@@ -34,7 +34,7 @@ export default {
  },
  computed:{
     user(){
-     return this.$page.props.auth.user
+    // return this.$page.props.auth.user
     }
  },
 }

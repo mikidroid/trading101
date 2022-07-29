@@ -24,10 +24,12 @@ class InstallScript extends Controller
          'db_database'=>'required',
          'db_host'=>'required',
        ]);
-       $this->setEnv('DB_HOST',$request->db_host);
+     /*for security reasons i had to comment this area out and also, the frontend needs database connection because it requests for user details. so the below code will cause issue if not connected to database. the essense of this code should not concern database connection that is why its disabed
+      ------------------------------------------------
+      $this->setEnv('DB_HOST',$request->db_host);
        $this->setEnv('DB_DATABASE',$request->db_database);
        $this->setEnv('DB_USERNAME',$request->db_username);
-       $this->setEnv('DB_PASSWORD',$request->db_password);
+       $this->setEnv('DB_PASSWORD',$request->db_password);*/
        return redirect('step2')->with('success','Settings saved! Continue to step 2!');
     }
     
