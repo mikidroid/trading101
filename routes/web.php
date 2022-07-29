@@ -11,6 +11,8 @@ use App\Http\Controllers\Transactions;
 use App\Http\Controllers\Notifications;
 use App\Http\Controllers\Profile;
 use App\Http\Controllers\Admin\Dashboard;
+use App\Http\Controllers\Admin\SettingsController;
+use App\Http\Controllers\InstallScript;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,12 +23,21 @@ use App\Http\Controllers\Admin\Dashboard;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//installScript
+Route::get('step1',[InstallScript::class,'Step1']);
+Route::get('step2',[InstallScript::class,'Step2']);
+Route::post('step1/store',[InstallScript::class,'Step1Store']);
+Route::post('step2/store',[InstallScript::class,'Step2Store']);
 
 //Guest
 Route::group([],function (){
+  //guest check for install script
   Route::get('/', function () {
+    if(env('SETUP_STATUS') == 0){
+       return redirect('step1');}
     return Inertia::render('home/guest');
   })->name('/')->middleware('guest');
+  
   Route::get('verify-account/confirm/{email}',[HomeController::class,'VerifyAccount'])->name('verify.account');
   Route::resource('trade',Trade::class);
   Route::resource('lottery',MyLottery::class);
@@ -69,8 +80,21 @@ Route::get('transaction/delete/{id}',[Transactions::class,'destroy'])->name('tra
 Route::get('withdrawal/reject/{id}',[Transactions::class,'WithdrawalRejected'])->name('withdrawal.reject');
 Route::post('credit-user/{id}',[Dashboard::class,'CreditUser'])->name('admin.credit');
 Route::get('delete-user/{id}',[Dashboard::class,'DeleteUser'])->name('user.delete');
-
 //end functions requests ********
+
+//admin settings control
+//POST
+Route::post('basic-settings/store',[SettingsController::class,'BasicSettingsStore']);
+Route::post('core-settings/store',[SettingsController::class,'CoreSettingsStore']);
+Route::post('payment-settings/store',[SettingsController::class,'PaymentSettingsStore']);
+Route::post('system-settings/store',[SettingsController::class,'SystemSettingsStore']);
+//GET
+Route::get('basic-settings',[SettingsController::class,'BasicSettings']);
+Route::get('core-settings',[SettingsController::class,'CoreSettings']);
+Route::get('payment-settings',[SettingsController::class,'PaymentSettings']);
+Route::get('system-settings',[SettingsController::class,'SystemSettings']);
+//end settings ********
+
 });
 
 //end admin ********
