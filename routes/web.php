@@ -26,8 +26,12 @@ use App\Http\Controllers\InstallScript;
 //installScript
 Route::get('step1',[InstallScript::class,'Step1']);
 Route::get('step2',[InstallScript::class,'Step2']);
+Route::get('step3',[InstallScript::class,'Step3']);
+Route::get('step4',[InstallScript::class,'Step4']);
 Route::post('step1/store',[InstallScript::class,'Step1Store']);
 Route::post('step2/store',[InstallScript::class,'Step2Store']);
+Route::post('step3/store',[InstallScript::class,'Step3Store']);
+Route::post('step4/store',[InstallScript::class,'Step4Store']);
 
 //Guest
 Route::group([],function (){

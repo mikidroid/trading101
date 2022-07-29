@@ -1,11 +1,17 @@
 <template>
   <guest-layout >
   <v-container>
+   <banner 
+           :icon="'mdi-lock'"
+           :title="'Installation Notice'"
+           :subtitle="'Edit with caution, leave at DEFAULT SETTINGS if unsure!'"
+        />
+   
    <div class="title pa-3">
     System Settings
    </div>
   
-  <v-form @submit.prevent="submit">
+   <v-form @submit.prevent="submit">
                   <v-text-field
                     v-model="form.db_database"
                     label="Database name"
@@ -57,10 +63,10 @@
 
 <script>
 import {colors} from '../../components/config/config.js';
-
+import banner from '../inc/banner-install.vue'
 export default {
  components:{
-  
+  banner
  },
  methods:{
    submit(){
