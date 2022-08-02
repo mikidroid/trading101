@@ -92,6 +92,8 @@
                     dense
                     :error-messages="form.errors.investment_duration"
                   />
+                  
+      <!-- Disable for now bcus of laravel scheduler timing
                   <v-text-field
                     v-model="form.investment_frequency"
                     label="Profit Frequency (hours)"
@@ -101,6 +103,17 @@
                     outlined
                     dense
                     :error-messages="form.errors.investment_frequency"
+                  />
+      -->
+                  <v-text-field
+                    v-model="form.lottery_amount"
+                    label="Lottery Amount ($)"
+                    rounded
+                    dark
+                    type="number"
+                    outlined
+                    dense
+                    :error-messages="form.errors.lottery_amount"
                   />
                   <v-btn light rounded :loading="form.processing" type="submit" block :color="color.accent" class="mt-3"
                     >save</v-btn
@@ -137,6 +150,7 @@ export default {
          investment_interest:this.data.investment_interest,
          investment_duration:this.data.investment_duration,
          investment_frequency:this.data.investment_frequency,
+         lottery_amount:this.data.lottery_amount,
       })
     }
  },

@@ -36,6 +36,7 @@ class SettingsController extends Controller
       $data['investment_duration'] = env('INVESTMENT_DURATION');
       $data['investment_interest'] = env('INTEREST_PERCENT');
       $data['investment_frequency'] = env('INVESTMENT_FREQUENCY');
+      $data['lottery_amount'] = env('LOTTERY_AMOUNT');
       return Inertia::render('admin/settings/core',['data'=>$data]);
     }
     
@@ -89,6 +90,7 @@ class SettingsController extends Controller
        $this->setEnv('INVESTMENT_FREQUENCY',$request->investment_frequency);
        $this->setEnv('INTEREST_PERCENT',$request->investment_interest);
        $this->setEnv('INVESTMENT_DURATION',$request->investment_duration);
+       $this->setEnv('LOTTERY_AMOUNT',$request->lottery_amount);
        return redirect('admin')->with('success','core settings changed!');
     }
     

@@ -46,8 +46,9 @@
                     v-model="form.db_password"
                     label="Password"
                     rounded
+                    :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
                     dark
-                    type="text"
+                    type="password"
                     outlined
                     dense
                     :error-messages="form.errors.db_password"
@@ -76,6 +77,7 @@ export default {
  data(){
     return{
       color:colors,
+      show1:false,
       form:this.$inertia.form({
          db_database:this.data.db_database,
          db_host:this.data.db_host,

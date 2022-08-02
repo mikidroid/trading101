@@ -12,14 +12,14 @@
         Chart
       </v-tab>
       <v-tab>
-        Tech Analysis
-      </v-tab>
-      <v-tab>
         Prices
       </v-tab>
       <v-tab>
-        Order book
+        Tech Analysis
       </v-tab>
+   <!--   <v-tab>
+        Order book
+      </v-tab> -->
     </v-tabs>
     <v-tabs-items 
        v-model="tabs" 
@@ -30,17 +30,17 @@
       </v-tab-item>
       <v-tab-item 
          :style="{backgroundColor:color.p_dark}" >
-        <div class="mt-2 text-center">
-          <iframe frameBorder="0" src="html-widgets/tech-analysis.html" width="400" :height="400"
-          >
-          </iframe>
+        <div class="text-center">
+         <!-- import asset include -->
+         <assets/>  
         </div>
       </v-tab-item>
       <v-tab-item 
          :style="{backgroundColor:color.p_dark}" >
-        <div class="text-center">
-         <!-- import asset include -->
-         <assets/>  
+        <div class="mt-2 text-center">
+          <iframe frameBorder="0" src="html-widgets/tech-analysis.html" width="400" :height="400"
+          >
+          </iframe>
         </div>
       </v-tab-item>
     </v-tabs-items>
