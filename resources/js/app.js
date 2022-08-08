@@ -5,6 +5,9 @@ import {
   App as InertiaApp,
   plugin as InertiaPlugin
 } from "@inertiajs/inertia-vue";
+//core ui
+import CoreuiVue from '@coreui/vue';
+
 import { Link } from "@inertiajs/inertia-vue";
 import vuetify from "./plugins/vuetify";
 import { InertiaProgress } from "@inertiajs/progress";
@@ -19,6 +22,7 @@ import adminNav from './components/nav/adminNav.vue';
 import adminLayout from './layouts/AdminLayout.vue';
 
 Vue.use(InertiaPlugin);
+Vue.use(CoreuiVue);
 Vue.component("Link", Link);
 
 Vue.component("application-logo",AppLogo);

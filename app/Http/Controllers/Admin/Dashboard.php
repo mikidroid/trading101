@@ -22,6 +22,7 @@ class Dashboard extends Controller
      $data['investments'] = Investment::all()->count();
      $data['total_deposit'] = $this->total_deposit();
      $data['total_withdrawal'] = $this->total_withdrawal();
+     $data['income_target'] = env('INCOME_TARGET');
      return Inertia::render('admin/dashboard',['data'=>$data]);
     }
     //get total deposit
