@@ -1,118 +1,48 @@
 <template>
   <admin-layout :title="'Admin Dashboard'">
-
-<v-row no-gutters> 
- <v-col cols="12" sm="12" md="6">
-        <a class="text-decoration-none" href="/admin/users" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3  display-1" :style="{color:color.p_text}">
-             🧑 {{data.users}}
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-           ✅ Total Registered Users 
-           </v-card-text>
-        </v-card></a>
- </v-col>
- 
-  <v-col cols="12" sm="12" md="6">
-        <a class="text-decoration-none" href="/admin/investments" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3 display-1" :style="{color:color.p_text}">
-             💼 {{data.investments}} 
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-             ✅ Total User Investments 
-           </v-card-text>
-        </v-card></a>
- </v-col>
- 
-</v-row>
-
-<v-row no-gutters> 
- <v-col cols="12" sm="12" md="6">
-        <a class="text-decoration-none" href="/admin/deposits" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3 display-1" :style="{color:color.p_text}">
-            💲{{data.total_deposit}}.00
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-            ✅  Total     Confirmed Deposit Amount</v-card-text>
-        </v-card></a>
- </v-col>
- 
-  <v-col cols="12" sm="12" md="6">
-        <a class="text-decoration-none" href="/admin/withdrawals" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3 display-1" :style="{color:color.p_text}">
-            💲{{data.total_withdrawal}}.00
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-            ✅ Total        Confirmed Withdraw Amount
-           </v-card-text>
-        </v-card></a>
- </v-col>
- 
-</v-row>
-
-<v-row no-gutters> 
- <v-col cols="6" xs="6" md="6">
-        <a class="text-decoration-none" href="/admin/deposits" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3  display-1" :style="{color:color.p_text}">
-             💵 {{data.deposits}}
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-           ✅     Deposits
-           </v-card-text>
-        </v-card></a>
- </v-col>
- 
-  <v-col cols="6" xs="6" md="6">
-        <a class="text-decoration-none" href="/admin/withdrawals" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-           <v-card-title class="py-1 ml-3 display-1" :style="{color:color.p_text}">
-             💳 {{data.withdrawals}} 
-           </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 mt-4 caption">
-             ✅  Withdrawals
-           </v-card-text>
-        </v-card></a>
- </v-col>
- 
-</v-row>
-
-
-<v-row no-gutters> 
- <v-col v-if="data.lottery" cols="12" xs="12" md="12">
-        <a class="text-decoration-none" href="/lottery" ><v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_light" elevation="3" class="mx-4 mb-4 justify-center">
-         <v-list two-line><v-list-item>
-          <v-list-item-content>
-           
-           <v-list-item-subtitle :style="{color:color.accent}" class="ml-2 pb-1 caption">
-           ✅     
-           Latest Lottery Winner
-           </v-list-item-subtitle>
-           <v-list-item-title class=" ml-3  display-0" :style="{color:color.p_text}">
-             🎁 {{data.lottery.name}}
-           </v-list-item-title>
-
-           </v-list-item-content>
-             <v-list-item-action>
-              <v-chip light :color="color.accent" small>
-               {{data.lottery.claimed?'Already Claimed':'Not Claimed'}}
-              </v-chip>
-              <v-list-item-action-text>
-              
-              </v-list-item-action-text>
-   </v-list-item-action>
-</v-list-item>
-          </v-list>
-        </v-card></a>
- </v-col>
- 
-
-</v-row>
-
+{{data.session}}
 <CJumbotron color="dark">
     <h1 class="display-3">Bootstrap 4</h1>
     <p class="lead">Bootstrap 4 Components for Vue.js 2.6+</p>
     <p>For more information visit website</p>
     <CButton color="light" href="https://coreui.io/" target="_blank">More Info</CButton>
   </CJumbotron>
+  
+<!-- Start user card stat -->
+<CRow>
+     <CCol>
+      <CWidgetProgressIcon
+        :header="data.today_visitors.visitors<1?1:data.today_visitors.visitors.toString()" 
+        text="Today"
+        inverse
+        color="danger"
+      >
+      <v-icon dark>mdi-account</v-icon>
+      
+      </CWidgetProgressIcon>
+    </CCol>
+    <CCol>
+      <CWidgetProgressIcon
+        :header="data.online<1?1:data.online.toString()" 
+        text="Online"
+        inverse
+        color="success"
+      >
+      <v-icon dark>mdi-account</v-icon>
+      
+      </CWidgetProgressIcon>
+    </CCol>
+    <CCol>
+      <CWidgetProgressIcon
+        :header="data.users"
+        text="New Clients"
+        inverse
+        color="info"
+      >
+        <v-icon dark>mdi-account</v-icon>
+      </CWidgetProgressIcon>
+    </CCol>
+  </CRow>
   
 <CRow>
     <CCol lg="6">
@@ -132,7 +62,7 @@
         text="Available Income"
         footer="Remaining Cash After Withdrawal Expenses"
         color="dark"
-        :value="cashProgressValue"
+        :value="AvailableCashProgressValue"
       />
     </CCol>
   </CRow>
@@ -140,49 +70,26 @@
   <CRow>
     <CCol lg="6">
       <CWidgetProgress
-        :header="'$'+data.total_deposit.toString()+'.00'"
+        :header="'$'+data.total_withdrawal.toString()+'.00'"
         text="Fullfiled Expenses"
         footer="Total Payouts"
         color="dark"
         inverse
-        :value="incomeProgressValue"
+        :value="fullfiledProgressValue"
       />
     </CCol>
     <CCol lg="6">
       <CWidgetProgress
-        :header="'$'+(data.total_deposit-data.total_withdrawal)+'.00'"
+        :header="'$'+data.pending_withdrawal+'.00'"
         inverse
         text="Unmet Expenses"
         footer="Pending Payouts"
         color="dark"
-        :value="cashProgressValue"
+        :value="unmetIncomeProgressValue"
       />
     </CCol>
   </CRow>
   
-<CRow>
-    <CCol>
-      <CWidgetProgressIcon
-        :header="136" 
-        text="Members Online"
-        inverse
-        color="primary"
-      >
-      <v-icon dark>mdi-account</v-icon>
-      
-      </CWidgetProgressIcon>
-    </CCol>
-    <CCol>
-      <CWidgetProgressIcon
-        :header="data.users"
-        text="New Clients"
-        inverse
-        color="dark"
-      >
-        <v-icon dark>mdi-account</v-icon>
-      </CWidgetProgressIcon>
-    </CCol>
-  </CRow>
   
   <CRow>
     <CCol col="12" sm="6">
@@ -203,6 +110,46 @@
         <CIcon name="cil-laptop"/>
       </CWidgetIcon>
     </CCol>
+  </CRow>
+  
+  <CRow>
+    <CCol col="12" sm="6">
+      <CWidgetIcon
+        :header="data.withdrawals.toString()"
+        text="Withdrawals"
+        color="primary"
+      >
+        <CIcon name="cil-settings"/>
+      </CWidgetIcon>
+    </CCol>
+
+<!--
+    <CCol col="12" sm="6">
+        <a class="bg-dark text-decoration-none" href="/lottery" > <v-list two-line><v-list-item>
+          <v-list-item-content>
+           
+           <v-list-item-subtitle :style="{color:color.s_text}" class="ml-2 pb-1 caption">
+           ✅     
+           Latest Lottery Winner
+           </v-list-item-subtitle>
+           <v-list-item-title class=" ml-3  display-0" :style="{color:color.d}">
+             🎁 {{data.lottery.name}}
+           </v-list-item-title>
+
+           </v-list-item-content>
+             <v-list-item-action>
+              <v-chip light :color="color.accent" small>
+               {{data.lottery.claimed?'Already Claimed':'Not Claimed'}}
+              </v-chip>
+              <v-list-item-action-text>
+              
+              </v-list-item-action-text>
+   </v-list-item-action>
+</v-list-item>
+          </v-list>
+        </a>
+    </CCol>
+-->
   </CRow>
 
   </admin-layout>
@@ -243,7 +190,7 @@ export default {
       let value = dep/sum1 
       return value;
     },
-    cashProgressValue(){
+    AvailableCashProgressValue(){
       let dep = this.data.total_deposit
       let wit = this.data.total_withdrawal    
       let subtract = dep-wit
@@ -251,7 +198,21 @@ export default {
       let sum1 = incTarget/100
       let value = subtract/sum1 
       return value;
-    }
+    },
+    fullfiledProgressValue(){
+      let wit = this.data.total_withdrawal
+      let incTarget = this.data.income_target
+      let sum1 = incTarget/100
+      let value = wit/sum1 
+      return value;
+    },
+    unmetIncomeProgressValue(){
+      let wit = this.data.pending_withdrawal
+      let incTarget = this.data.income_target
+      let sum1 = incTarget/100
+      let value = wit/sum1 
+      return value;
+    },
  },
 }
 </script>

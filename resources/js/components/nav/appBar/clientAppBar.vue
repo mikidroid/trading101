@@ -1,7 +1,7 @@
 <template>
  <div>
    <v-app-bar
-      
+      v-bind:style="{fontSize:'34px'}"
       dark
       app
       v-if="hideAppBar == false || hideAppBar == null"
@@ -50,13 +50,27 @@
      
      <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6">
+          <v-list-item-title v-bind:style="{color:color.l}" class="my-2 text-h4">
             Super4trade
           </v-list-item-title>
-          <v-list-item-subtitle class="py-3" >
-            Trade with us and make upto 3% daily.
+          <v-list-item-subtitle class="font-weight-black red my-1 text-white py-3 pl-2" >
+            Trade with us and make upto 3% daily
           </v-list-item-subtitle>
-          
+          <div  class="caption">
+You will enjoy high-frequency trading services and also have your funds protected.
+         </div>
+       <v-img
+          :src="`/files/images/pic${Math.floor(Math.random() * 5)}.jpg`"
+          aspect-ratio="1.7"
+          cover
+        ></v-img>
+
+          <div v-bind:style="{color:color.accent}"  class="mt-4 caption"><marquee>
+Be amongst the lucky ones as you stand a chance to win a prize every friday!</marquee>
+         </div>
+        <div  class="caption mt-3">
+        <v-chip small :color="color.primary">Join 3,000+ who trust us!</v-chip>
+        </div>
         </v-list-item-content>
       </v-list-item>
 

@@ -9,6 +9,9 @@ use App\Models\MyTransaction;
 use App\Models\User; 
 use App\Models\Investment;
 use App\Models\Lottery;
+use App\Models\Session;
+use App\Models\VisitorLog;
+use Carbon\Carbon;
 
 class Dashboard extends Controller
 {
@@ -22,6 +25,13 @@ class Dashboard extends Controller
      $data['investments'] = Investment::all()->count();
      $data['total_deposit'] = $this->total_deposit();
      $data['total_withdrawal'] = $this->total_withdrawal();
+     $data['pending_withdrawal'] = $this->pending_withdrawal();
+     $online= Session::where('last_activity','>=',time()-60)->get(); 
+     $data['visitors']=VisitorLog::all();
+     $data['today_visitors']=VisitorLog::where('date',date('Y-m-d'))->first();
+     $data['online']=$online->count();
+      
+     //income target used for making admin progressBar appealing
      $data['income_target'] = env('INCOME_TARGET');
      return Inertia::render('admin/dashboard',['data'=>$data]);
     }
@@ -43,7 +53,15 @@ class Dashboard extends Controller
      }
      return $total;
     }
-    
+    //get total pending withdrawal
+    public function pending_withdrawal(){
+     $total = 0;
+     $withs = MyTransaction::whereType('withdrawal')->whereStatus(0)->get();
+     foreach($withs as $wit){
+       $total += $wit->amount;
+     }
+     return $total;
+    }
     
     //Other admin pages
     //users page

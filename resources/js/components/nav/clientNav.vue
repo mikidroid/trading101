@@ -1,7 +1,7 @@
 <!-- App.vue -->
 <template>
 <v-app 
-   v-bind:style="{fontFamily:'Oxygen',background:color.p_dark,color:'#fff'}">
+   v-bind:style="{fontSize:'15px',fontFamily:'Oxygen',background:color.p_dark,color:'#fff'}">
 
  <clientAppBar :title="title" :hideAppBar="hideAppBar"></clientAppBar>
   <!-- Sizes your content based upon application components -->

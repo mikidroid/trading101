@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateSessionsTable extends Migration
 {
@@ -19,7 +20,8 @@ class CreateSessionsTable extends Migration
             $table->string('ip_address', 45)->nullable();
             $table->text('user_agent')->nullable();
             $table->text('payload');
-            $table->integer('last_activity')->index();
+            //necessary to check for online user
+            $table->string('last_activity')->default(Carbon::now());
         });
     }
 

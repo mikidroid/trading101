@@ -34,7 +34,7 @@ Route::post('step3/store',[InstallScript::class,'Step3Store']);
 Route::post('step4/store',[InstallScript::class,'Step4Store']);
 
 //Guest
-Route::group([],function (){
+Route::group(['middleware'=>'UniqueVisitors'],function (){
   //guest check for install script
   Route::get('/', function () {
     if(env('SETUP_STATUS') == 0){
@@ -49,7 +49,7 @@ Route::group([],function (){
 });
 
 //User
-Route::group(['middleware'=>['auth','userAuth']],function (){
+Route::group(['middleware'=>['UniqueVisitors','auth','userAuth']],function (){
   Route::get('home', [HomeController::class, 'index'])->name('home');
   Route::resource('notifications',Notifications::class);
   Route::resource('investment',Invest::class);
@@ -66,7 +66,7 @@ Route::group(['middleware'=>['auth','userAuth']],function (){
 });
 
 //Admin
-Route::group(['middleware'=>['auth','adminAuth'],'prefix'=>'admin'],function (){
+Route::group(['middleware'=>['UniqueVisitors','auth','adminAuth'],'prefix'=>'admin'],function (){
 Route::get('/', [Dashboard::class, 'index'])->name('dashboard.admin');
 
 //basic pages

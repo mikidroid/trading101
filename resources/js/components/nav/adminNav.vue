@@ -1,7 +1,7 @@
 <!-- App.vue -->
 <template>
 <v-app 
-   v-bind:style="{fontFamily:'oswald',background:color.p_dark,color:'#fff'}">
+   v-bind:style="{fontSize:'15px',fontFamily:'oswald',background:color.p_dark,color:'#fff'}">
 
  <adminAppBar :title="title" :hideAppBar="hideAppBar"></adminAppBar>
   <!-- Sizes your content based upon application components -->

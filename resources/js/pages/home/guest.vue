@@ -4,6 +4,8 @@
    <frontpageHeader/>
    <!-- import banner include -->
    <banner/>
+   <!-- import carousel include -->
+   <carousels/>
     <!-- import features include -->
    <features/>  
    <!-- import asset include -->
@@ -18,11 +20,12 @@ import assets from '../inc/assets.vue';
 import banner from '../inc/banner.vue';
 import balance from '../inc/balance.vue';
 import features from '../inc/features.vue';
+import carousels from '../inc/carousels.vue';
 import frontpageHeader from '../inc/frontpage-header.vue';
 
 export default {
  components:{
-  assets,banner,features,frontpageHeader
+  assets,banner,features,frontpageHeader,carousels
  },
  methods:{
   
