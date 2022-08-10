@@ -42,8 +42,8 @@
       app
       max-height="100%"
       max-width="100%"
-      height="80%"
-      width="70%"
+      height="90%"
+      width="100%"
       v-bind:style="{background:color.p_dark}"
       dark
       temporary

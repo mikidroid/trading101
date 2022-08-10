@@ -1,7 +1,7 @@
 <template>
   <guest-layout v-bind="{title:'Withdraw'}">
    <v-container>
-              <v-form @submit.prevent="submit">
+              <v-form @submit.prevent="submit" class="pt-15 mt-15">
            <v-select
           v-model="coin"
           :items="coins"

@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       chartData: {
-        labels: [...this.data.map(d=>d.date),'Tues','Wed','Thus','fri','sat','sun'],
+        labels: this.data.map(d=>d.date),
         datasets: [ 
           { label:'Page Views',
             backgroundColor:'#f34',

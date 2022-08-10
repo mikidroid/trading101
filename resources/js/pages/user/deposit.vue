@@ -1,7 +1,8 @@
 <template>
   <guest-layout v-bind="{title:'Deposit'}">
    <v-container>
-              <v-form @submit.prevent="deposit">
+    
+        <v-form @submit.prevent="deposit" class="pt-15 mt-15">
            <v-select
           v-model="form.coin"
           :items="coins"
@@ -52,7 +53,7 @@ export default {
      color:colors,
      showPassword: false,
       color:colors,
-      coins:['ETH','USDT','LITE','BTC'],
+      coins:['ETH','LITE','BTC'],
       isLoading: false,
       form: this.$inertia.form({
         coin:'BTC',

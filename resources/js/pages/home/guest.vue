@@ -5,7 +5,7 @@
    <!-- import banner include -->
    <banner/>
    <!-- import carousel include -->
-   <carousels/>
+   <carousels class="mb-3"/>
     <!-- import features include -->
    <features/>  
    <!-- import asset include -->
