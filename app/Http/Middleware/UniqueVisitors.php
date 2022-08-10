@@ -9,19 +9,15 @@ use Carbon\Carbon;
 
 class UniqueVisitors
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
+
     public function handle(Request $request, Closure $next)
     {   //if there is already a vistor log for this day
        if(VisitorLog::where('date','=',date('Y-m-d'))->first()){
-       $sessionId = $request->session()->getId();
+        $sessionId = $request->session()->getId();
         //if user already added to session, proceed to intended
         $vl = VisitorLog::where('date',date('Y-m-d'))->first();
+        $vl->page_views += 1;
+        $vl->save();
         $dbSession = null;
         foreach($vl->details as $vl){
           if($vl['session_id']==$sessionId){
@@ -47,12 +43,12 @@ class UniqueVisitors
          return $next($request);
         }
        }
-       
        //if no visitor added to the current date log
        $sessionId = $request->session()->getId();
        $details = [
            "date"=>date('Y-m-d'),
            "visitors"=>1,
+           "page_views"=>1,
            "details"=>[array(
               "ip"=>$request->ip(),
               "session_id"=>$sessionId)

@@ -27,7 +27,8 @@ class Dashboard extends Controller
      $data['total_withdrawal'] = $this->total_withdrawal();
      $data['pending_withdrawal'] = $this->pending_withdrawal();
      $online= Session::where('last_activity','>=',time()-60)->get(); 
-     $data['visitors']=VisitorLog::all();
+     $data['visitors']=VisitorLog::latest()->take(14)->get();
+     $data['page_views']=VisitorLog::latest()->take(14)->get();
      $data['today_visitors']=VisitorLog::where('date',date('Y-m-d'))->first();
      $data['online']=$online->count();
       

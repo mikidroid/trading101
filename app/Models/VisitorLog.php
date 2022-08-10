@@ -12,6 +12,7 @@ class VisitorLog extends Model
         'details',
         'visitors',
         'date',
+        'page_views'
      ];
      
     protected $casts = [

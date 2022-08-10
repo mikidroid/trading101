@@ -1,12 +1,13 @@
 <template>
   <admin-layout :title="'Admin Dashboard'">
-{{data.session}}
-<CJumbotron color="dark">
-    <h1 class="display-3">Bootstrap 4</h1>
-    <p class="lead">Bootstrap 4 Components for Vue.js 2.6+</p>
-    <p>For more information visit website</p>
-    <CButton color="light" href="https://coreui.io/" target="_blank">More Info</CButton>
-  </CJumbotron>
+
+
+<CRow>
+  <CCol>
+    <sparkline :pieChart="data" :data="data.visitors" class="my-3"/>
+  </CCol>
+</CRow>
+
   
 <!-- Start user card stat -->
 <CRow>
@@ -17,7 +18,7 @@
         inverse
         color="danger"
       >
-      <v-icon dark>mdi-account</v-icon>
+      <v-icon dark>mdi-account-group-outline</v-icon>
       
       </CWidgetProgressIcon>
     </CCol>
@@ -28,14 +29,14 @@
         inverse
         color="success"
       >
-      <v-icon dark>mdi-account</v-icon>
+      <v-icon dark>mdi-account-check-outline</v-icon>
       
       </CWidgetProgressIcon>
     </CCol>
     <CCol>
       <CWidgetProgressIcon
         :header="data.users"
-        text="New Clients"
+        text="All Clients"
         inverse
         color="info"
       >
@@ -98,7 +99,7 @@
         text="Investments"
         color="primary"
       >
-        <CIcon name="cil-settings"/>
+        <v-icon dark>mdi-finance</v-icon>
       </CWidgetIcon>
     </CCol>
     <CCol col="12" sm="6">
@@ -107,7 +108,7 @@
         text="Deposits"
         color="info"
       >
-        <CIcon name="cil-laptop"/>
+        <v-icon dark>mdi-bank</v-icon>
       </CWidgetIcon>
     </CCol>
   </CRow>
@@ -119,7 +120,7 @@
         text="Withdrawals"
         color="primary"
       >
-        <CIcon name="cil-settings"/>
+        <v-icon dark>mdi-cash</v-icon>
       </CWidgetIcon>
     </CCol>
 
@@ -156,18 +157,16 @@
 </template>
 
 <script>
-import Vue from "vue";
-/*import CoreuiVue from '@coreui/vue';
-Vue.use(CoreuiVue);*/
-import { CIcon } from '@coreui/icons-vue';
-import { cilList, cilShieldAlt } from '@coreui/icons';
+
+import sparkline from '../inc/sparkline.vue';
+import barChart from '../inc/barChart.vue';
 import {colors} from '../../components/config/config.js';
-//import { CSwitch, CButton,CJumbotron } from '@coreui/vue';
+
 
 export default {
  props:['data'],
  components:{
-  CIcon
+  sparkline,barChart
  },
  methods:{
   

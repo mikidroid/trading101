@@ -19,6 +19,7 @@ class CreateVisitorLogsTable extends Migration
             $table->text('details');
             $table->string('date');
             $table->integer('visitors');
+            $table->integer('page_views');
         });
     }
 

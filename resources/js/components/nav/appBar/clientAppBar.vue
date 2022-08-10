@@ -56,17 +56,18 @@
           <v-list-item-subtitle class="font-weight-black red my-1 text-white py-3 pl-2" >
             Trade with us and make upto 3% daily
           </v-list-item-subtitle>
-          <div  class="caption">
+          <div  class="caption my-2">
 You will enjoy high-frequency trading services and also have your funds protected.
          </div>
        <v-img
-          :src="`/files/images/pic${Math.floor(Math.random() * 5)}.jpg`"
+           class="my-2"
+          :src="`/files/images/pic${2}.jpg`"
           aspect-ratio="1.7"
           cover
         ></v-img>
 
-          <div v-bind:style="{color:color.accent}"  class="mt-4 caption"><marquee>
-Be amongst the lucky ones as you stand a chance to win a prize every friday!</marquee>
+          <div v-bind:style="{color:color.accent}"  class="mt-4 caption">
+Be amongst the lucky ones as you stand a chance to win a prize every friday!
          </div>
         <div  class="caption mt-3">
         <v-chip small :color="color.primary">Join 3,000+ who trust us!</v-chip>
