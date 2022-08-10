@@ -42,8 +42,8 @@
       app
       max-height="100%"
       max-width="100%"
-      height="90%"
-      width="100%"
+      height="100%"
+      width="80%"
       v-bind:style="{background:color.p_dark}"
       dark
       temporary
@@ -52,7 +52,7 @@
      
      <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="text-h6">
+          <v-list-item-title class="text-h4">
             Super4trade
           </v-list-item-title>
           <v-list-item-subtitle class="py-3" >
