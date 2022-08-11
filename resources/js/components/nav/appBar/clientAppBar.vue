@@ -49,13 +49,16 @@
      
      <v-list-item>
         <v-list-item-content>
-          <v-list-item-title v-bind:style="{color:color.l}" class="my-2 text-h4">
-            Super4trade
+          <v-list-item-title v-bind:style="{color:color.l}" class="my-2">
+          <h3 class="my-2 font-weight-bold">
+           Super4trade               
+           <v-icon>mdi-chart-timeline-variant</v-icon>
+          </h3>
           </v-list-item-title>
           <v-list-item-subtitle class="font-weight-black red my-1 text-white py-3 pl-2" >
             Trade with us and make upto 3% daily
           </v-list-item-subtitle>
-          <div  class="caption my-2">
+          <div v-bind:style="{lineHeight: '1.4rem'}"  class="line-height-2 my-3">
 You will enjoy high-frequency trading services and also have your funds protected.
          </div>
        <v-img
@@ -65,11 +68,13 @@ You will enjoy high-frequency trading services and also have your funds protecte
           cover
         ></v-img>
 
-          <div v-bind:style="{color:color.accent}"  class="mt-4 caption">
+          <div v-bind:style="{color:color.accent,lineHeight: '1.4rem'}"  class="my-3 font-weight-bold">
 Be amongst the lucky ones as you stand a chance to win a prize every friday!
          </div>
-        <div  class="caption mt-3">
-        <v-chip small :color="color.primary">Join 3,000+ who trust us!</v-chip>
+        <div  class="small my-2">
+        <v-chip small :color="color.primary">
+        <v-icon>mdi-account-group</v-icon>
+        &nbsp; Join 3,000+ who trust us!</v-chip>
         </div>
         </v-list-item-content>
       </v-list-item>

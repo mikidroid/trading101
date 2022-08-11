@@ -4,7 +4,7 @@
    <v-span :style="{color:color.l}">Crypto</v-span> Trading Service     <v-span :style="{color:color.l}">Worldwide</v-span>
   </v-card-text>
   
-   <div :style="{textAlign:'center'}" class="mt-2 font-weight-light pa-2"><p>
+   <div :style="{textAlign:'center'}" class="mt-2 pa-2"><p>
    Super4Trade is an arbitrage Trading site that has API function to trigger trades in the crypto market In Super4trade, you will enjoy high-frequency trading services and also have your funds protected. 
    <p/><p>
    Using our four way method _arror_ Signal Trigger _arrow_ API Technology Order Trade _arrow_ Profit Return, you can obtain a profit of 2.6% in a day of maximum trade.</p>
@@ -16,7 +16,7 @@
   </v-btn>
   </div>
   
-  <div class="text-center pa-2 mb-5 caption">Join 3,000+ who trust us!</div>
+  <div class="text-center pa-2 mb-5 small">Join 3,000+ who trust us!</div>
   <v-divider dark/>
   </v-container>
 </template>

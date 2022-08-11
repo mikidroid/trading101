@@ -5,7 +5,7 @@
         <v-row align="center" justify="center" >
           <v-col cols="12" sm="12" md="10" lg="4">
             
-              <v-card-title class="mb-5 d-flex display-4 align-center justify-center">
+              <v-card-title class="mb-5 d-flex display-3 align-center justify-center">
                 <Link as="button" >
                   Sign up!
                 </Link>

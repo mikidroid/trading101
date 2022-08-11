@@ -3,7 +3,7 @@
 
  <v-container>
   
-               <v-card-title class="mb-5 d-flex display-4 align-center justify-center">
+               <v-card-title class="mb-5 d-flex display-3 align-center justify-center">
                 <Link as="button" >
                   Sign in!
                 </Link>
