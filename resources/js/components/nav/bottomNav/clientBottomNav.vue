@@ -3,15 +3,14 @@
   <v-bottom-navigation
       v-model="value"
       :input-value="active"
-      :style="{height:'7vh',background:color.p_light}"
+      :style="{height:'7vh',background:color.p_dark}"
       app
       v-if="hideBottomNav == false || hideBottomNav == null"
       dark
+      elevation="0"
       grow
       horizonta
     >
-   
-   
       <v-btn>
        <Link as="button" :href="route('/')">
         <!-- <span :style="{color:color.accent}">Invest</span> -->

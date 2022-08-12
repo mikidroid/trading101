@@ -2,7 +2,7 @@
  <div>
   <v-row dense >
    <v-col class="d-flex align-center" dense :style="{overflowX:'scroll'}">
-   <v-col justify="center" class="" cols="5">
+   <v-col  justify="center" class="" cols="5">
     <v-card :height="150" :style="{borderRadius:'15px'}" dark :color="color.p_light" class="pa-2 text-center">
      <v-icon class="my-4">mdi-chart-timeline-variant</v-icon>
      <div class="pa-2 text-wrap">Get 3% Daily Profit</div>

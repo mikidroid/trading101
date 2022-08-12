@@ -166,6 +166,7 @@ class Transactions extends Controller
           'ref'=> $random,
           'name'=>$user->name,
           'email'=>$user->email,
+          'status'=>2
          ];
          
         $cancel_url=env('APP_URL')."/deposit/fail";

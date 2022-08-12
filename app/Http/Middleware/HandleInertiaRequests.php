@@ -47,7 +47,6 @@ class HandleInertiaRequests extends Middleware
                $profit = $user->createWallet([
                 'name'=>'profit',
                 'slug'=>'profit']);
-               return;
              }
              $profit = $user->getWallet('profit');
              //save balances to $user variable

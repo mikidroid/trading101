@@ -28,12 +28,12 @@
    <template v-slot:item.status="{ item }">
       <v-chip
         dark
-        :color="item.status==0?'warning':'green'"
+        :color="item.status==0?'warning':item.status==2?'red':'green'"
       >
       <v-icon left>
-      {{ item.status == 0?'mdi-clock-outline':'mdi-check-decagram' }}
+      {{ item.status == 1?'mdi-check-decagram':item.status == 2?'mdi-alert':'mdi-clock-outline' }}
       </v-icon>
-      {{ item.status == 0?'pending':'completed' }}
+      {{item.status==0?'Pending':item.status==2?'Failed':'Completed'}}
       </v-chip>
    </template>
    

@@ -60,9 +60,8 @@ class RegisteredUserController extends Controller
         ]);
 
         event(new Registered($user));
-        //Auth::login($user);
-        //send mail here
-        return redirect('/login');
+         Auth::login($user);
+         return redirect()->intended('/home');
     }
     
     

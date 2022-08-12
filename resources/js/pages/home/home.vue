@@ -48,5 +48,9 @@ export default {
      return this.$page.props.auth.user
     }
  },
+ created(){
+   
+   //this.$inertia.visit('/home')
+ }
 }
 </script>
