@@ -52,7 +52,6 @@
 
 <script>
 import {colors} from '../../components/config/config.js';
-require("https://s3.tradingview.com/tv.js");
 import vuetradingchart from 'vue-tradingchart';
 import assets from '../inc/assets.vue'
 
