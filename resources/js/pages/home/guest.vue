@@ -1,16 +1,16 @@
 <template>
-  <guest-layout >
-  
+  <guest-layout>
+
    <frontpageHeader/>
    <!-- import banner include -->
    <banner/>
    <!-- import carousel include -->
    <carousels class="mb-3"/>
     <!-- import features include -->
-   <features/>  
+   <features/>
    <!-- import asset include -->
-   <assets/>  
-  
+   <assets/>
+
   </guest-layout>
 </template>
 
@@ -23,16 +23,17 @@ import features from '../inc/features.vue';
 import carousels from '../inc/carousels.vue';
 import frontpageHeader from '../inc/frontpage-header.vue';
 
+
 export default {
  components:{
   assets,banner,features,frontpageHeader,carousels
  },
  methods:{
-  
+
  },
  data(){
     return{
-     
+
     }
  },
  computed:{

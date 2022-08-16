@@ -1,10 +1,8 @@
 <template>
   <guest-layout v-bind={hideBottomNav:true,hideAppBar:true}>
-    
+
       <v-container fluid>
-        <v-row align="center" justify="center" >
-          <v-col cols="12" sm="12" md="10" lg="4">
-            
+
               <v-card-title class="mb-5 d-flex display-3 align-center justify-center">
                 <Link as="button" >
                   Sign up!
@@ -40,11 +38,11 @@
                     dense
                     :error-messages="form.errors.email"
                   />
-                  
-                   <vue-tel-input-vuetify  
+
+                   <vue-tel-input-vuetify
                    :error-messages="form.errors.phone"
                    dark v-model="form.phone"></vue-tel-input-vuetify>
-                  
+
                   <v-text-field
                     v-model="form.password"
                     prepend-inner-icon="mdi-lock"
@@ -58,7 +56,7 @@
                     :type="showPassword ? 'text' : 'password'"
                     @click:append="showPassword = !showPassword"
                   />
-  
+
                   <v-text-field
                     v-model="form.password_confirmation"
                     prepend-inner-icon="mdi-lock"
@@ -83,11 +81,10 @@
                 <span class="me-2"> Already have an account? </span>
                 <Link :href="route('login')"> Sign in instead </Link>
               </v-card-text>
-            
-          </v-col>
-        </v-row>
+
+
       </v-container>
-   
+
   </guest-layout>
 </template>
 
