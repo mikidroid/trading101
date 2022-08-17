@@ -135,7 +135,7 @@ class Transactions extends Controller
     
     public function success_url(Request $request)
     {
-        return redirect('/home')->with('success','Deposit success! Awaiting confirmation.');
+        return redirect('/home')->with('success','Deposit processing! Awaiting confirmation.');
     }
     
    public function fail_url(Request $request)
@@ -190,9 +190,11 @@ class Transactions extends Controller
         /*if(isset($coin2->data->url)){
           Notification::send($user, new Deposit($Trans));
         }*/
-        
+        $data['btc_address']=$chargeRes->data->addresses->bitcoin;
+        $data['btc_amount']=$chargeRes->data->pricing->bitcoin->amount;
+        return Inertia::render('user/btc-payment',['data'=>$data]);
          //inertia redirect works in both local and prod server thats why am using it
-        return Inertia::location($chargeRes->data->hosted_url);
+        //return Inertia::location($chargeRes->data->hosted_url);
          //return redirect()->away($coin2->data->url);
         
     }

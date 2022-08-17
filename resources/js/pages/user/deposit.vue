@@ -1,13 +1,14 @@
 <template>
   <guest-layout v-bind="{title:'Deposit'}">
    <v-container>
-    
+
         <v-form @submit.prevent="deposit" class="pt-15 mt-15">
            <v-select
           v-model="form.coin"
           :items="coins"
           menu-props="auto"
           dark
+          disabled
           label="Select Coin"
           hide-details
           class="my-5 mt-4 pa-3"

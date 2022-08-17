@@ -1,7 +1,7 @@
 <template>
   <client-nav :title="title" :hideBottomNav="hideBottomNav" :hideAppBar="hideAppBar">
      <v-row align="center" justify="center" >
-     <v-col cols="12" sm="12" md="10" lg="5">
+     <v-col cols="12" sm="12" md="6" lg="5">
      <slot/>
      </v-col>
      </v-row>
