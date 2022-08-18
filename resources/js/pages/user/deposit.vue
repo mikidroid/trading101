@@ -1,7 +1,7 @@
 <template>
   <guest-layout v-bind="{title:'Deposit'}">
    <v-container>
-
+     
         <v-form @submit.prevent="deposit" class="pt-15 mt-15">
            <v-select
           v-model="form.coin"
@@ -47,7 +47,6 @@ export default {
   deposit(){
     this.form.post('/deposit/store');
   },
-   
  },
  data(){
     return{

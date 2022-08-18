@@ -35,7 +35,12 @@ class Kernel extends ConsoleKernel
          //development testing
          $schedule->command('LotteryCron')->dailyAt('13:00');
          $schedule->command('InvestCron')->everySixHours();
-         $schedule->command('queue:work')->everyFiveMinutes()->withoutOverlapping();
+         
+         //Queuework
+         if (!strstr(shell_exec('ps xf'), 'php artisan queue:work'))
+         {
+            $schedule->command('queue:work --timeout=60 --tries=1')->withoutOverlapping();
+         }
     }
 
     /**

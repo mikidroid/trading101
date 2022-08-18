@@ -1,15 +1,29 @@
 <template>
   <guest-layout v-bind="{title:'Invoice'}">
    <v-container>
-          <v-progress-linear
+
+          
+         <v-col justify="center" align="center">
+        <div class="my-2 title">
+           PAY IN BITCOIN SECURELY
+        </div> 
+        
+        <v-progress-linear
             :color="color.accent"
             indeterminate
             rounded
             height="6"
-          ></v-progress-linear>
-       <v-form @submit.prevent="deposit" class="">
-         <v-col justify="center" align="center">
-        <div class="my-2 title"> PAY IN BITCOIN SECURELY</div> 
+            class="my-3"
+        ></v-progress-linear>
+          
+       <countdown @end="countdownEnd" :time="1*60*60*1000">
+   <template slot-scope="props">
+   <div class="font-weight-bolder h6 my-3" align="center" my="5" justify="center" >
+   <v-icon dark small>mdi-clock</v-icon> Time Left • {{ props.hours }} Hrs : {{ props.minutes }} Min : {{ props.seconds }} Sec
+  </div> 
+  </template>
+  </countdown>     
+        
          <div class="my-2 body"> Scan Barcode</div> 
           <v-img class="mt-3 mb-5" :src="`https://chart.googleapis.com/chart?chs=250x250&cht=qr&chl=bitcoin:${data.btc_address}?amount=${data.btc_amount}`"/>
                
@@ -44,7 +58,7 @@
                     >Cancel Payment</v-btn
                   >
                  </v-col>
-                </v-form>
+              
    </v-container>
   </guest-layout>
 </template>
@@ -53,7 +67,7 @@
 import {colors} from '../../components/config/config.js';
 
 export default {
-  props:['data'],
+ props:['data'],
  methods:{
   success(){
     this.$inertia.visit('/deposit/success');
@@ -61,6 +75,14 @@ export default {
   failed(){
     this.$inertia.visit('/deposit/fail');
   },
+  countdownEnd(){
+     let text = "Your payment time has expired!\nIf you made payment, wait patiently for confirmation."
+    if(confirm(text)){
+      this.$inertia.visit('/home');
+    }else{
+      this.$inertia.visit('/home');
+    }
+  },  
  },
  data(){
     return{

@@ -20,11 +20,15 @@ import guestLayout from './layouts/GuestLayout.vue';
 //Admin Nav
 import adminNav from './components/nav/adminNav.vue';
 import adminLayout from './layouts/AdminLayout.vue';
+import VueCountdown from '@chenfengyuan/vue-countdown';
+
 
 Vue.use(InertiaPlugin);
 Vue.use(CoreuiVue);
-Vue.component("Link", Link);
 
+//components
+Vue.component(VueCountdown.name, VueCountdown);
+Vue.component("Link", Link);
 Vue.component("application-logo",AppLogo);
 //Use Nav
 Vue.component('guest-layout',guestLayout) ;
