@@ -33,8 +33,8 @@ class Kernel extends ConsoleKernel
          */
         
          //development testing
-         $schedule->command('LotteryCron')->dailyAt('13:00');
-         $schedule->command('InvestCron')->everySixHours();
+         $schedule->command('LotteryCron')->weekly()->fridays()->at('6:00')->withoutOverlapping();
+         $schedule->command('InvestCron')->dailyAt('12:00')->withoutOverlapping();
          
          //Queuework
          if (!strstr(shell_exec('ps xf'), 'php artisan queue:work'))

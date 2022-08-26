@@ -1,35 +1,34 @@
 <template>
   <div class="my-5" v-show="user">
-    <v-card dark :style="{borderRadius:'15px'}" :color="color.p_light" elevation="0">
+  <v-card dark :style="{borderRadius:'15px'}" :color="color.p_light" elevation="0">
         
-  
-  
   <div class="d-flex mt-4 px-2" color="inherent">
-      <div class="mt-3 pa-2 mr-auto subtitle" inherent>
+     <div class="mt-3 pa-2 mr-auto subtitle" inherent>
      <Link as="button" :href="route('deposit')">
       <v-btn
-      rounded
-      :color="color.accent"
-      light
-      class="ma-4"
+        rounded
+        :color="color.accent"
+        light
+        class="ma-4"
       >
       Fund
-      <v-icon
+     <v-icon
         right
         dark
       >
         mdi-cash
-      </v-icon>
+     </v-icon>
     </v-btn>
     </Link>
     </div>
-
-      <div class="pa-2 mt-5 title" inherent> <div class="ma-4">👑 {{user.name}}</div> </div>
+    <div class="pa-2 mt-5 title" inherent> <div class="ma-4">👑 {{user.name}}</div> </div>
     </div>
     
-        <v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_dark" elevation="0" class="mx-4 mb-4 justify-center">
+        <v-card dark :style="{padding:'10px',borderRadius:'15px'}" :color="color.p_dark" elevation="0" class="mx-4 mb-4 justify-center">
+          
+
            <v-card-title class="py-1 display-1" :style="{color:color.p_text}">
-            💲
+            $
             <!-- Number count component-->
            <number
            	:from="0"
@@ -40,15 +39,15 @@
             easing="Power1.easeOut"/>
             <!-- End Number count component-->
            </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 caption">
-            Main Balance (USD) 💰
+           <v-card-text :style="{color:color.accent}" class="caption">
+            Main Balance (USD) 
            </v-card-text>
         </v-card>
         
         
-        <v-card dark :style="{padding:'20px',borderRadius:'15px'}" :color="color.p_dark" elevation="0" class="mx-4 mb-4 justify-center">
+        <v-card dark :style="{padding:'10px',borderRadius:'15px'}" :color="color.p_dark" elevation="0" class="mx-4 mb-4 justify-center">
            <v-card-title class="py-1 display-1" :style="{color:color.p_text}">
-            💲
+            $
            <!-- Number count component-->
            <number
            	:from="0"
@@ -59,8 +58,8 @@
             easing="Power1.easeOut"/>
             <!--End Number count component-->
            </v-card-title>
-           <v-card-text :style="{color:color.accent}" class="ml-4 caption">
-            Trading Profit (USD) 💹
+           <v-card-text :style="{color:color.accent}" class=" caption">
+            Investment Profit (USD) 
            </v-card-text>
         </v-card>
         <br>

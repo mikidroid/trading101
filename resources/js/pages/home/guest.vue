@@ -1,6 +1,6 @@
 <template>
   <guest-layout>
-
+    
    <frontpageHeader/>
    <!-- import banner include -->
    <banner/>
@@ -33,7 +33,7 @@ export default {
  },
  data(){
     return{
-
+      copied:"issues of life",
     }
  },
  computed:{
