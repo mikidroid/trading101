@@ -10,9 +10,9 @@
               </v-card-title>
               <v-card-text class="">
                 <p class=" text-2xl font-weight-semibold text--dark mb-2">
-                  Adventure starts here 🚀
+                  Register now to get started. 🚀
                 </p>
-                <p class="mb-2">Make your app management easy and fun!</p>
+                
               </v-card-text>
               <v-card-text dark>
                 <v-form @submit.prevent="register">

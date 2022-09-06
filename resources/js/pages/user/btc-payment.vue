@@ -57,7 +57,7 @@
               />
 
               <v-btn @click="success" light rounded block :color="color.accent" class="mt-1"
-              >Process Payment</v-btn>
+              >Done</v-btn>
               <v-btn @click="failed" 
                 light 
                 rounded 

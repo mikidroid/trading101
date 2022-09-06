@@ -51,7 +51,7 @@ class RegisteredUserController extends Controller
          }
         }
         //create user
-        $user = User::create([
+        $newUser = User::create([
             'name' => $request->name,
             'phone' => $request->phone,
             'is_admin'=> $is_admin,
@@ -59,9 +59,18 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        event(new Registered($user));
-         Auth::login($user);
-         return redirect()->intended('/home');
+        event(new Registered($newUser));
+        Auth::login($newUser);
+        $user = $request->user();
+        //Create profit and referral wallet
+        $profit = $user->createWallet([
+             'name'=>'profit',
+             'slug'=>'profit']);
+        $referral = $user->createWallet([
+             'name'=>'referral',
+             'slug'=>'referral']);
+         //redirect after successful
+        return redirect()->intended('/home');
     }
     
     

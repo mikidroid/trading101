@@ -43,16 +43,12 @@ class HandleInertiaRequests extends Middleware
              
              if(Auth::check()){
              $user = $request->user();
-             if(!$user->hasWallet('profit')){
-               $profit = $user->createWallet([
-                'name'=>'profit',
-                'slug'=>'profit']);
-             }
              $profit = $user->getWallet('profit');
+             $referral = $user->getWallet('referral');
              //save balances to $user variable
              $user['bal'] = $user->balanceFloat;
              $user['profit'] = $profit->balanceFloat;
-             
+             $user['referral'] = $referral->balanceFloat;
              }
              
              return $request->user()
