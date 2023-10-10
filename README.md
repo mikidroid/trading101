@@ -1,3 +1,3 @@
 # Trading Website Application by Mikidroid
- A Crypto trading and investment website made with Laravel and Reactjs
+ A Crypto trading and investment website made with Laravel and Vuejs
 # trading101
